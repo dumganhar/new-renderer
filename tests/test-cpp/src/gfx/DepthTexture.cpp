@@ -25,7 +25,6 @@
 #include "DepthTexture.h"
 #include "BunnyData.h"
 #include "../Utils.h"
-#include "platform/CCPlatformConfig.h"
 
 using namespace cocos2d;
 
@@ -87,8 +86,8 @@ namespace
         
         ~BigTriangle()
         {
-            GFX_SAFE_RELEASE(program);
-            GFX_SAFE_RELEASE(vertexBuffer);
+            CC_SAFE_RELEASE(program);
+            CC_SAFE_RELEASE(vertexBuffer);
         }
         
         gfx::Program* program;
@@ -156,9 +155,9 @@ namespace
         
         ~Bunny()
         {
-            GFX_SAFE_RELEASE(program);
-            GFX_SAFE_RELEASE(vertexBuffer);
-            GFX_SAFE_RELEASE(indexBuffer);
+            CC_SAFE_RELEASE(program);
+            CC_SAFE_RELEASE(vertexBuffer);
+            CC_SAFE_RELEASE(indexBuffer);
         }
         
         gfx::Program* program;
@@ -202,8 +201,8 @@ DepthTexture::~DepthTexture()
     delete bunny;
     delete bg;
     
-    GFX_SAFE_RELEASE(_frameBuffer);
-    GFX_SAFE_RELEASE(_depthTexture);
+    CC_SAFE_RELEASE(_frameBuffer);
+    CC_SAFE_RELEASE(_depthTexture);
 }
 
 void DepthTexture::tick(float dt)

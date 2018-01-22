@@ -1,6 +1,6 @@
 #include "types.h"
 
-NS_CC_BEGIN
+NS_CC_GFX_BEGIN
 
 const char* ATTRIB_NAME_POSITION = "a_position";
 const char* ATTRIB_NAME_NORMAL = "a_normal";
@@ -20,6 +20,10 @@ const char* ATTRIB_NAME_UV4 = "a_uv4";
 const char* ATTRIB_NAME_UV5 = "a_uv5";
 const char* ATTRIB_NAME_UV6 = "a_uv6";
 const char* ATTRIB_NAME_UV7 = "a_uv7";
+
+NS_CC_GFX_END
+
+NS_CC_BEGIN
 
 /**
  * Color4F

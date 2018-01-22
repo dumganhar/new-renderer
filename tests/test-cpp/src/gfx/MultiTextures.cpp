@@ -23,7 +23,6 @@
  ****************************************************************************/
 
 #include "MultiTextures.h"
-#include "base/ccTypes.h"
 #include "../Utils.h"
 
 using namespace cocos2d;
@@ -111,10 +110,10 @@ MultiTextures::MultiTextures()
 
 MultiTextures::~MultiTextures()
 {
-    GFX_SAFE_RELEASE(_vertexBuffer);
-    GFX_SAFE_RELEASE(_program);
-    GFX_SAFE_RELEASE(_background);
-    GFX_SAFE_RELEASE(_texture1);
+    CC_SAFE_RELEASE(_vertexBuffer);
+    CC_SAFE_RELEASE(_program);
+    CC_SAFE_RELEASE(_background);
+    CC_SAFE_RELEASE(_texture1);
 }
 
 void MultiTextures::tick(float dt)

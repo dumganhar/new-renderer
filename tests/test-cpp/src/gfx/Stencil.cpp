@@ -23,7 +23,6 @@
  ****************************************************************************/
 
 #include "Stencil.h"
-#include "cocos2d.h"
 #include "../Utils.h"
 
 #include <vector>
@@ -134,10 +133,10 @@ Stencil::Stencil()
 
 Stencil::~Stencil()
 {
-    GFX_SAFE_RELEASE(_vertexBuffer);
-    GFX_SAFE_RELEASE(_program);
-    GFX_SAFE_RELEASE(_texture);
-    GFX_SAFE_RELEASE(_canvasTexture);
+    CC_SAFE_RELEASE(_vertexBuffer);
+    CC_SAFE_RELEASE(_program);
+    CC_SAFE_RELEASE(_texture);
+    CC_SAFE_RELEASE(_canvasTexture);
 }
 
 void Stencil::tick(float dt)

@@ -19,7 +19,7 @@
 		1AC3D1A32015BE1A00ED072F /* macros.h in Headers */ = {isa = PBXBuildFile; fileRef = 1AC3D02F2015BE1A00ED072F /* macros.h */; };
 		1AC3D1A52015BE1A00ED072F /* Data.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1AC3D0312015BE1A00ED072F /* Data.cpp */; };
 		1AC3D1A62015BE1A00ED072F /* Data.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1AC3D0312015BE1A00ED072F /* Data.cpp */; };
-		1AC3D2042015BE1B00ED072F /* GFX.h in Headers */ = {isa = PBXBuildFile; fileRef = 1AC3D17D2015BE1A00ED072F /* GFX.h */; };
+		1AC3D2042015BE1B00ED072F /* gfx.h in Headers */ = {isa = PBXBuildFile; fileRef = 1AC3D17D2015BE1A00ED072F /* gfx.h */; };
 		1AC3D2052015BE1B00ED072F /* State.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1AC3D17E2015BE1A00ED072F /* State.cpp */; };
 		1AC3D2062015BE1B00ED072F /* State.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1AC3D17E2015BE1A00ED072F /* State.cpp */; };
 		1AC3D2072015BE1B00ED072F /* DeviceGraphics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1AC3D17F2015BE1A00ED072F /* DeviceGraphics.cpp */; };
@@ -43,8 +43,8 @@
 		1AC3D2192015BE1B00ED072F /* FrameBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1AC3D18A2015BE1A00ED072F /* FrameBuffer.cpp */; };
 		1AC3D21A2015BE1B00ED072F /* Texture.h in Headers */ = {isa = PBXBuildFile; fileRef = 1AC3D18B2015BE1A00ED072F /* Texture.h */; };
 		1AC3D21B2015BE1B00ED072F /* GFXUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 1AC3D18C2015BE1A00ED072F /* GFXUtils.h */; };
-		1AC3D21C2015BE1B00ED072F /* GFX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1AC3D18D2015BE1A00ED072F /* GFX.cpp */; };
-		1AC3D21D2015BE1B00ED072F /* GFX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1AC3D18D2015BE1A00ED072F /* GFX.cpp */; };
+		1AC3D21C2015BE1B00ED072F /* gfx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1AC3D18D2015BE1A00ED072F /* gfx.cpp */; };
+		1AC3D21D2015BE1B00ED072F /* gfx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1AC3D18D2015BE1A00ED072F /* gfx.cpp */; };
 		1AC3D21E2015BE1B00ED072F /* Program.h in Headers */ = {isa = PBXBuildFile; fileRef = 1AC3D18E2015BE1A00ED072F /* Program.h */; };
 		1AC3D21F2015BE1B00ED072F /* State.h in Headers */ = {isa = PBXBuildFile; fileRef = 1AC3D18F2015BE1A00ED072F /* State.h */; };
 		1AC3D2202015BE1B00ED072F /* VertexFormat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1AC3D1902015BE1A00ED072F /* VertexFormat.cpp */; };
@@ -108,7 +108,7 @@
 		1AC3D02E2015BE1A00ED072F /* Ref.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ref.h; sourceTree = "<group>"; };
 		1AC3D02F2015BE1A00ED072F /* macros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = macros.h; sourceTree = "<group>"; };
 		1AC3D0312015BE1A00ED072F /* Data.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Data.cpp; sourceTree = "<group>"; };
-		1AC3D17D2015BE1A00ED072F /* GFX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFX.h; sourceTree = "<group>"; };
+		1AC3D17D2015BE1A00ED072F /* gfx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gfx.h; sourceTree = "<group>"; };
 		1AC3D17E2015BE1A00ED072F /* State.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = State.cpp; sourceTree = "<group>"; };
 		1AC3D17F2015BE1A00ED072F /* DeviceGraphics.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DeviceGraphics.cpp; sourceTree = "<group>"; };
 		1AC3D1802015BE1A00ED072F /* VertexFormat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VertexFormat.h; sourceTree = "<group>"; };
@@ -124,7 +124,7 @@
 		1AC3D18A2015BE1A00ED072F /* FrameBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FrameBuffer.cpp; sourceTree = "<group>"; };
 		1AC3D18B2015BE1A00ED072F /* Texture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Texture.h; sourceTree = "<group>"; };
 		1AC3D18C2015BE1A00ED072F /* GFXUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFXUtils.h; sourceTree = "<group>"; };
-		1AC3D18D2015BE1A00ED072F /* GFX.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GFX.cpp; sourceTree = "<group>"; };
+		1AC3D18D2015BE1A00ED072F /* gfx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gfx.cpp; sourceTree = "<group>"; };
 		1AC3D18E2015BE1A00ED072F /* Program.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Program.h; sourceTree = "<group>"; };
 		1AC3D18F2015BE1A00ED072F /* State.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = State.h; sourceTree = "<group>"; };
 		1AC3D1902015BE1A00ED072F /* VertexFormat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VertexFormat.cpp; sourceTree = "<group>"; };
@@ -231,8 +231,8 @@
 				1AC3D1922015BE1A00ED072F /* DeviceGraphics.h */,
 				1AC3D18A2015BE1A00ED072F /* FrameBuffer.cpp */,
 				1AC3D1962015BE1A00ED072F /* FrameBuffer.h */,
-				1AC3D18D2015BE1A00ED072F /* GFX.cpp */,
-				1AC3D17D2015BE1A00ED072F /* GFX.h */,
+				1AC3D18D2015BE1A00ED072F /* gfx.cpp */,
+				1AC3D17D2015BE1A00ED072F /* gfx.h */,
 				1AC3D1882015BE1A00ED072F /* GFXUtils.cpp */,
 				1AC3D18C2015BE1A00ED072F /* GFXUtils.h */,
 				1AC3D1972015BE1A00ED072F /* GraphicsHandle.cpp */,
@@ -302,7 +302,7 @@
 				1AC3D21A2015BE1B00ED072F /* Texture.h in Headers */,
 				1AC3D2682015C9F200ED072F /* CCMathBase.h in Headers */,
 				1AC3D2692015C9F200ED072F /* MathUtil.h in Headers */,
-				1AC3D2042015BE1B00ED072F /* GFX.h in Headers */,
+				1AC3D2042015BE1B00ED072F /* gfx.h in Headers */,
 				1AC3D20C2015BE1B00ED072F /* GraphicsHandle.h in Headers */,
 				1AC3D2222015BE1B00ED072F /* Texture2D.h in Headers */,
 				1AC3D1A22015BE1A00ED072F /* Ref.h in Headers */,
@@ -412,7 +412,7 @@
 				1AC3D2652015C9F200ED072F /* Vec4.cpp in Sources */,
 				1AC3D2142015BE1B00ED072F /* GFXUtils.cpp in Sources */,
 				1AC3D19A2015BE1A00ED072F /* types.cpp in Sources */,
-				1AC3D21C2015BE1B00ED072F /* GFX.cpp in Sources */,
+				1AC3D21C2015BE1B00ED072F /* gfx.cpp in Sources */,
 				1AC3D2602015C9F200ED072F /* Quaternion.cpp in Sources */,
 				1AC3D26A2015C9F200ED072F /* Vec2.cpp in Sources */,
 				1AC3D22A2015BE1B00ED072F /* GraphicsHandle.cpp in Sources */,
@@ -442,7 +442,7 @@
 				1AC3D2662015C9F200ED072F /* Vec4.cpp in Sources */,
 				1AC3D2152015BE1B00ED072F /* GFXUtils.cpp in Sources */,
 				1AC3D19B2015BE1A00ED072F /* types.cpp in Sources */,
-				1AC3D21D2015BE1B00ED072F /* GFX.cpp in Sources */,
+				1AC3D21D2015BE1B00ED072F /* gfx.cpp in Sources */,
 				1AC3D2612015C9F200ED072F /* Quaternion.cpp in Sources */,
 				1AC3D26B2015C9F200ED072F /* Vec2.cpp in Sources */,
 				1AC3D22B2015BE1B00ED072F /* GraphicsHandle.cpp in Sources */,

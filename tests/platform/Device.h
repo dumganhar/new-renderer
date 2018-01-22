@@ -24,43 +24,23 @@
 
 #pragma once
 
-#include "TestBase.h"
+#include "base/macros.h"
+#include "types.h"
 
-class Particle : public TestBaseI
+#include <string>
+
+NS_CC_BEGIN
+
+class Device
 {
 public:
-    DEFINE_CREATE_METHOD(Particle)
-    Particle();
-    ~Particle();
-    virtual void tick(float dt) override;
+    /**
+     * Gets texture data for text.
+     */
+    static Data getTextureDataForText(const char * text, const FontDefinition& textDefinition, TextAlign align, int &width, int &height, bool& hasPremultipliedAlpha);
 
 private:
-    cocos2d::gfx::VertexBuffer *_vertexBuffer;
-    cocos2d::gfx::IndexBuffer *_indexBuffer;
-    cocos2d::gfx::Program *_program;
-    cocos2d::gfx::DeviceGraphics *_device;
-
-    cocos2d::Mat4 _model;
-    cocos2d::Mat4 _view;
-    cocos2d::Mat4 _projection;
-    
-#define maxQuadCount 1024
-#define vertStride 9
-
-    float _vbufferArray[maxQuadCount][4][vertStride];
-    uint16_t _ibufferArray[maxQuadCount][6];
-
-    struct ParticleData
-    {
-        cocos2d::Vec3 position;
-        cocos2d::Vec3 velocity;
-        float age;
-        float life;
-    };
-
-#define particleCount 100
-    ParticleData _particles[particleCount];
-
-    cocos2d::gfx::Texture2D* _texture;
+    CC_DISALLOW_IMPLICIT_CONSTRUCTORS(Device);
 };
 
+NS_CC_END

@@ -30,9 +30,7 @@ THE SOFTWARE.
 
 #include <string>
 
-#include "math/CCGeometry.h"
 #include "math/CCMath.h"
-#include "base/CCRef.h"
 #include "platform/CCGL.h"
 
 /**
@@ -589,22 +587,6 @@ enum class LabelEffect : char {
     UNDERLINE,
     STRIKETHROUGH,
     ALL
-};
-
-/** @struct Acceleration
- * The device accelerometer reports values for each axis in units of g-force.
- */
-class CC_DLL Acceleration
-    : public Ref
-{
-public:
-    double x;
-    double y;
-    double z;
-
-    double timestamp;
-
-    Acceleration(): x(0), y(0), z(0), timestamp(0) {}
 };
 
 extern const std::string CC_DLL STD_STRING_EMPTY;

@@ -32,7 +32,7 @@
 #include "base/macros.h"
 #include "base/GLBase.h"
 
-NS_CC_BEGIN
+NS_CC_GFX_BEGIN
 
 enum ClearFlag : uint8_t
 {
@@ -169,6 +169,10 @@ enum class UniformElementType : uint8_t
     FLOAT,
     INT
 };
+
+NS_CC_GFX_END
+
+NS_CC_BEGIN
 
 struct CC_DLL Color4F
 {

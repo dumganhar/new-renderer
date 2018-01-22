@@ -25,7 +25,6 @@
 #pragma onece
 
 #include <string>
-#include "cocos2d.h"
 
 namespace utils
 {

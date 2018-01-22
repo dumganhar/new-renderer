@@ -99,10 +99,10 @@ namespace {
 #define DEF_TO_INT(pointer)  (*(int*)(pointer))
 #define DEF_TO_FLOAT(pointer)  (*(float*)(pointer))
 
-    void setUniform1i(GLint location, GLsizei count , const void* value, cocos2d::UniformElementType elementType)
+    void setUniform1i(GLint location, GLsizei count , const void* value, cocos2d::gfx::UniformElementType elementType)
     {
         assert(count == 1);
-        if (elementType == cocos2d::UniformElementType::INT)
+        if (elementType == cocos2d::gfx::UniformElementType::INT)
         {
             glUniform1i(location, DEF_TO_INT(value));
         }
@@ -114,63 +114,63 @@ namespace {
         }
     }
 
-    void setUniform1iv(GLint location, GLsizei count , const void* value, cocos2d::UniformElementType elementType)
+    void setUniform1iv(GLint location, GLsizei count , const void* value, cocos2d::gfx::UniformElementType elementType)
     {
         glUniform1iv(location, count, (const GLint*)value);
     }
 
-    void setUniform2iv(GLint location, GLsizei count , const void* value, cocos2d::UniformElementType elementType)
+    void setUniform2iv(GLint location, GLsizei count , const void* value, cocos2d::gfx::UniformElementType elementType)
     {
         glUniform2iv(location, count, (const GLint*)value);
     }
 
-    void setUniform3iv(GLint location, GLsizei count , const void* value, cocos2d::UniformElementType elementType)
+    void setUniform3iv(GLint location, GLsizei count , const void* value, cocos2d::gfx::UniformElementType elementType)
     {
         glUniform3iv(location, count, (const GLint*)value);
     }
 
-    void setUniform4iv(GLint location, GLsizei count , const void* value, cocos2d::UniformElementType elementType)
+    void setUniform4iv(GLint location, GLsizei count , const void* value, cocos2d::gfx::UniformElementType elementType)
     {
         glUniform4iv(location, count, (const GLint*)value);
     }
 
-    void setUniform1f(GLint location, GLsizei count , const void* value, cocos2d::UniformElementType elementType)
+    void setUniform1f(GLint location, GLsizei count , const void* value, cocos2d::gfx::UniformElementType elementType)
     {
         assert(count == 1);
         glUniform1f(location, DEF_TO_FLOAT(value));
     }
 
-    void setUniform1fv(GLint location, GLsizei count , const void* value, cocos2d::UniformElementType elementType)
+    void setUniform1fv(GLint location, GLsizei count , const void* value, cocos2d::gfx::UniformElementType elementType)
     {
         glUniform1fv(location, count, (const GLfloat*)value);
     }
 
-    void setUniform2fv(GLint location, GLsizei count , const void* value, cocos2d::UniformElementType elementType)
+    void setUniform2fv(GLint location, GLsizei count , const void* value, cocos2d::gfx::UniformElementType elementType)
     {
         glUniform2fv(location, count, (const GLfloat*)value);
     }
 
-    void setUniform3fv(GLint location, GLsizei count , const void* value, cocos2d::UniformElementType elementType)
+    void setUniform3fv(GLint location, GLsizei count , const void* value, cocos2d::gfx::UniformElementType elementType)
     {
         glUniform3fv(location, count, (const GLfloat*)value);
     }
 
-    void setUniform4fv(GLint location, GLsizei count , const void* value, cocos2d::UniformElementType elementType)
+    void setUniform4fv(GLint location, GLsizei count , const void* value, cocos2d::gfx::UniformElementType elementType)
     {
         glUniform4fv(location, count, (const GLfloat*)value);
     }
 
-    void setUniformMatrix2fv(GLint location, GLsizei count, const void *value, cocos2d::UniformElementType elementType)
+    void setUniformMatrix2fv(GLint location, GLsizei count, const void *value, cocos2d::gfx::UniformElementType elementType)
     {
         glUniformMatrix2fv(location, count, GL_FALSE, (const GLfloat*)value);
     }
 
-    void setUniformMatrix3fv(GLint location, GLsizei count, const void *value, cocos2d::UniformElementType elementType)
+    void setUniformMatrix3fv(GLint location, GLsizei count, const void *value, cocos2d::gfx::UniformElementType elementType)
     {
         glUniformMatrix3fv(location, count, GL_FALSE, (const GLfloat*)value);
     }
 
-    void setUniformMatrix4fv(GLint location, GLsizei count, const void *value, cocos2d::UniformElementType elementType)
+    void setUniformMatrix4fv(GLint location, GLsizei count, const void *value, cocos2d::gfx::UniformElementType elementType)
     {
         glUniformMatrix4fv(location, count, GL_FALSE, (const GLfloat*)value);
     }

@@ -23,7 +23,6 @@
  ****************************************************************************/
 
 #include "SubImage.h"
-#include "cocos2d.h"
 #include "../Utils.h"
 
 #include <vector>
@@ -108,9 +107,9 @@ SubImage::SubImage()
 
 SubImage::~SubImage()
 {
-    GFX_SAFE_RELEASE(_vertexBuffer);
-    GFX_SAFE_RELEASE(_program);
-    GFX_SAFE_RELEASE(_texture);
+    CC_SAFE_RELEASE(_vertexBuffer);
+    CC_SAFE_RELEASE(_program);
+    CC_SAFE_RELEASE(_texture);
     free(_data);
 }
 

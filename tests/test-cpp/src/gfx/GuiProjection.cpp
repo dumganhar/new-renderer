@@ -23,7 +23,6 @@
  ****************************************************************************/
 
 #include "GuiProjection.h"
-#include "cocos2d.h"
 #include "../Utils.h"
 
 #include <vector>
@@ -128,9 +127,9 @@ GuiProjection::GuiProjection()
 
 GuiProjection::~GuiProjection()
 {
-    GFX_SAFE_RELEASE(_vertexBuffer);
-    GFX_SAFE_RELEASE(_program);
-    GFX_SAFE_RELEASE(_texture);
+    CC_SAFE_RELEASE(_vertexBuffer);
+    CC_SAFE_RELEASE(_program);
+    CC_SAFE_RELEASE(_texture);
 }
 
 void GuiProjection::tick(float dt)

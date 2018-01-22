@@ -25,7 +25,6 @@
 #pragma once
 
 #include "TestBase.h"
-#include "gfx/CCGFX.h"
 
 class Bunny : public TestBaseI
 {

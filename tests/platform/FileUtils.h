@@ -1,5 +1,5 @@
 /****************************************************************************
- Copyright (c) 2013-2016 Chukong Technologies Inc.
+ Copyright (c) 2018 Chukong Technologies
 
  http://www.cocos2d-x.org
 
@@ -22,46 +22,4 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __CCCONSOLE_H__
-#define __CCCONSOLE_H__
-/// @cond DO_NOT_SHOW
-
-#if defined(_MSC_VER) || defined(__MINGW32__)
-#include <BaseTsd.h>
-#include <WinSock2.h>
-
-#ifndef __SSIZE_T
-#define __SSIZE_T
-typedef SSIZE_T ssize_t;
-#endif // __SSIZE_T
-
-#else
-#include <sys/select.h>
-#endif
-
-#include <thread>
-#include <vector>
-#include <map>
-#include <functional>
-#include <string>
-#include <mutex>
-#include <stdarg.h>
-
-#include "base/CCRef.h"
-#include "base/ccMacros.h"
-#include "platform/CCPlatformMacros.h"
-
-NS_CC_BEGIN
-
-/// The max length of CCLog message.
-static const int MAX_LOG_LENGTH = 16*1024;
-
-/**
- @brief Output Debug message.
- */
-void CC_DLL log(const char * format, ...) CC_FORMAT_PRINTF(1, 2);
-
-NS_CC_END
-
-/// @endcond
-#endif /* defined(__CCCONSOLE_H__) */
+#pragma once

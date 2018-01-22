@@ -22,7 +22,6 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#include <vector>
 #include "Basic.h"
 #include "../Utils.h"
 
@@ -75,8 +74,8 @@ Basic::Basic()
 
 Basic::~Basic()
 {
-    GFX_SAFE_RELEASE(_vertexBuffer);
-    GFX_SAFE_RELEASE(_program);
+    CC_SAFE_RELEASE(_vertexBuffer);
+    CC_SAFE_RELEASE(_program);
 }
 
 void Basic::tick(float dt)

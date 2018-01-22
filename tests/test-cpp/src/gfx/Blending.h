@@ -24,8 +24,6 @@
 
 #pragma once
 
-#include "math/Mat4.h"
-#include "gfx/CCGFX.h"
 #include "../TestBase.h"
 
 class Blending : public TestBaseI

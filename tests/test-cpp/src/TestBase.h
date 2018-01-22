@@ -24,6 +24,13 @@
 
 #pragma once
 
+#include "math/CCMath.h"
+#include "platform/Device.h"
+#include "platform/FileUtils.h"
+#include "platform/Image.h"
+
+#include "gfx/gfx.h"
+
 #define DEFINE_CREATE_METHOD(clsName) \
 static TestBaseI* create() { \
     return new clsName(); \

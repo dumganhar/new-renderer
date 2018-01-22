@@ -213,4 +213,16 @@ static clsName* create(arg0Type arg0, arg1Type arg1, arg2Type arg2, arg3Type arg
 #define CC_DLL 
 #endif
 
-#define CCASSERT assert
+#define CCASSERT(cond, ...) assert(cond)
+
+/** @def CC_DISALLOW_IMPLICIT_CONSTRUCTORS(TypeName)
+ * A macro to disallow all the implicit constructors, namely the
+ * default constructor, copy constructor and operator= functions.
+ *
+ * This should be used in the private: declarations for a class
+ * that wants to prevent anyone from instantiating it. This is
+ * especially useful for classes containing only static methods.
+ */
+#define CC_DISALLOW_IMPLICIT_CONSTRUCTORS(TypeName)    \
+    TypeName();                                        \
+    CC_DISALLOW_COPY_ASSIGN_AND_MOVE(TypeName)

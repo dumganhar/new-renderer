@@ -24,10 +24,7 @@
 
 #pragma once
 
-#include "math/Mat4.h"
-#include "gfx/CCGFX.h"
 #include "../TestBase.h"
-#include "macro.h"
 
 class MultiTextures : public TestBaseI
 {

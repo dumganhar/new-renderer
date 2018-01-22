@@ -24,9 +24,6 @@
 
 #pragma once
 
-
-#pragma once
-
 #include "base/macros.h"
 
 NS_CC_BEGIN

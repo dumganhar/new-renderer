@@ -153,10 +153,10 @@ Particle::Particle()
 
 Particle::~Particle()
 {
-    GFX_SAFE_RELEASE(_vertexBuffer);
-    GFX_SAFE_RELEASE(_indexBuffer);
-    GFX_SAFE_RELEASE(_program);
-    GFX_SAFE_RELEASE(_texture);
+    CC_SAFE_RELEASE(_vertexBuffer);
+    CC_SAFE_RELEASE(_indexBuffer);
+    CC_SAFE_RELEASE(_program);
+    CC_SAFE_RELEASE(_texture);
 }
 
 void Particle::tick(float dt)

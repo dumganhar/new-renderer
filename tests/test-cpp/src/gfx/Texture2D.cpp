@@ -23,7 +23,6 @@
  ****************************************************************************/
 
 #include "Texture2D.h"
-#include "cocos2d.h"
 #include "../Utils.h"
 
 #include <vector>
@@ -136,10 +135,10 @@ Texture2DTest::Texture2DTest()
 
 Texture2DTest::~Texture2DTest()
 {
-    GFX_SAFE_RELEASE(_vertexBuffer);
-    GFX_SAFE_RELEASE(_program);
-    GFX_SAFE_RELEASE(_canvasTexture);
-    GFX_SAFE_RELEASE(_texture);
+    CC_SAFE_RELEASE(_vertexBuffer);
+    CC_SAFE_RELEASE(_program);
+    CC_SAFE_RELEASE(_canvasTexture);
+    CC_SAFE_RELEASE(_texture);
 }
 
 void Texture2DTest::tick(float dt)

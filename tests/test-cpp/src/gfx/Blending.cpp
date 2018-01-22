@@ -98,9 +98,9 @@ namespace
         
         ~Quad()
         {
-            GFX_SAFE_RELEASE(vertexBuffer);
-            GFX_SAFE_RELEASE(indexBuffer);
-            GFX_SAFE_RELEASE(program);
+            CC_SAFE_RELEASE(vertexBuffer);
+            CC_SAFE_RELEASE(indexBuffer);
+            CC_SAFE_RELEASE(program);
         }
         
         gfx::VertexBuffer* vertexBuffer;
@@ -159,8 +159,8 @@ namespace
         
         ~BigTriangle()
         {
-            GFX_SAFE_RELEASE(program);
-            GFX_SAFE_RELEASE(vertexBuffer);
+            CC_SAFE_RELEASE(program);
+            CC_SAFE_RELEASE(vertexBuffer);
         }
         
         gfx::Program* program;
@@ -228,8 +228,8 @@ Blending::~Blending()
     delete quad;
     quad = nullptr;
     
-    GFX_SAFE_RELEASE(_backgroud);
-    GFX_SAFE_RELEASE(_sprite0);
+    CC_SAFE_RELEASE(_backgroud);
+    CC_SAFE_RELEASE(_sprite0);
 }
 
 void Blending::tick(float dt)

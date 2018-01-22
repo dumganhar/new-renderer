@@ -103,8 +103,8 @@ namespace
         
         ~BigTriangle()
         {
-            GFX_SAFE_RELEASE(program);
-            GFX_SAFE_RELEASE(vertexBuffer);
+            CC_SAFE_RELEASE(program);
+            CC_SAFE_RELEASE(vertexBuffer);
         }
         
         gfx::Program* program;
@@ -175,9 +175,9 @@ namespace
         
         ~Bunny()
         {
-            GFX_SAFE_RELEASE(program);
-            GFX_SAFE_RELEASE(vertexBuffer);
-            GFX_SAFE_RELEASE(indexBuffer);
+            CC_SAFE_RELEASE(program);
+            CC_SAFE_RELEASE(vertexBuffer);
+            CC_SAFE_RELEASE(indexBuffer);
         }
         
         gfx::Program* program;
@@ -222,8 +222,8 @@ PostProcess::~PostProcess()
     delete bunny;
     delete bg;
 
-    GFX_SAFE_RELEASE(_frameBuffer);
-    GFX_SAFE_RELEASE(_colorTexture);
+    CC_SAFE_RELEASE(_frameBuffer);
+    CC_SAFE_RELEASE(_colorTexture);
 }
 
 void PostProcess::tick(float dt)

@@ -24,7 +24,6 @@
 
 #pragma once
 
-#include "gfx/CCGFX.h"
 #include "../TestBase.h"
 
 class DepthTexture : public TestBaseI
