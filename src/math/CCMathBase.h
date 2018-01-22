@@ -3,7 +3,7 @@
 
 #include <memory>
 #include <string.h>
-#include "platform/CCPlatformMacros.h"
+#include "macros.h"
 /**
  * @addtogroup base
  * @{

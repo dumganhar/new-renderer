@@ -29,10 +29,6 @@
 #include <vector>
 #include <unordered_map>
 #include "base/ccTypes.h"
-#include "math/Vec2.h"
-#include "math/Vec3.h"
-#include "math/Vec4.h"
-#include "math/Mat4.h"
 #include "../macro.h"
 #include "../types.h"
 #include "CCState.h"
@@ -99,13 +95,12 @@ public:
     void setUniformf(const std::string& name, float f1, float f2, float f3);
     void setUniformf(const std::string& name, float f1, float f2, float f3, float f4);
     void setUniformfv(const std::string& name, size_t count, const float* value);
-    void setUniformVec2(const std::string& name, const cocos2d::Vec2& value);
-    void setUniformVec3(const std::string& name, const cocos2d::Vec3& value);
-    void setUniformVec4(const std::string& name, const cocos2d::Vec4& value);
-    void setUniformMat2(const std::string& name, float* value);
-    void setUniformMat3(const std::string& name, float* value);
-    void setUniformMat4(const std::string& name, float* value);
-    void setUniformMat4(const std::string& name, const cocos2d::Mat4& value);
+    void setUniformVec2(const std::string& name, const float* value);
+    void setUniformVec3(const std::string& name, const float* value);
+    void setUniformVec4(const std::string& name, const float* value);
+    void setUniformMat2(const std::string& name, const float* value);
+    void setUniformMat3(const std::string& name, const float* value);
+    void setUniformMat4(const std::string& name, const float* value);
     void setUniform(const std::string& name, const void* v, size_t bytes, UniformElementType elementType);
 
     void setPrimitiveType(PrimitiveType type);

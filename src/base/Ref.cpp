@@ -23,72 +23,37 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ****************************************************************************/
 
-#pragma once
+#include "Ref.h"
 
-#include "platform/CCPlatformMacros.h"
+NS_CC_BASE_BEGIN
 
-NS_CC_BEGIN
-
-/**
- * Ref is used for reference count management. If a class inherits from Ref,
- * then it is easy to be shared in different places.
- * @js NA
- */
-class Ref
+Ref::Ref()
+: _referenceCount(1) // when the Ref is created, the reference count of it is 1
 {
-public:
-    /**
-     * Retains the ownership.
-     *
-     * This increases the Ref's reference count.
-     *
-     * @see release, autorelease
-     * @js NA
-     */
-    void retain();
+}
 
-    /**
-     * Releases the ownership immediately.
-     *
-     * This decrements the Ref's reference count.
-     *
-     * If the reference count reaches 0 after the decrement, this Ref is
-     * destructed.
-     *
-     * @see retain, autorelease
-     * @js NA
-     */
-    void release();
+Ref::~Ref()
+{
+}
 
-    /**
-     * Returns the Ref's current reference count.
-     *
-     * @returns The Ref's reference count.
-     * @js NA
-     */
-    unsigned int getReferenceCount() const;
+void Ref::retain()
+{
+    ++_referenceCount;
+}
 
-protected:
-    /**
-     * Constructor
-     *
-     * The Ref's reference count is 1 after construction.
-     * @js NA
-     */
-    Ref();
+void Ref::release()
+{
+    --_referenceCount;
 
-public:
-    /**
-     * Destructor
-     *
-     * @js NA
-     * @lua NA
-     */
-    virtual ~Ref();
+    if (_referenceCount == 0)
+    {
+        delete this;
+    }
+}
 
-protected:
-    /// count of references
-    unsigned int _referenceCount;
-};
+unsigned int Ref::getReferenceCount() const
+{
+    return _referenceCount;
+}
 
-NS_CC_END
+NS_CC_BASE_END

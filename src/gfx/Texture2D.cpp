@@ -82,11 +82,11 @@ namespace {
         const GLint border = 0;
 
         if (IsTarget3D(target)) {
-            GL_CHECK(glTexImage3D(target, level, dui->internalFormat, width, height, depth,
+            CC_GL_CHECK(glTexImage3D(target, level, dui->internalFormat, width, height, depth,
                          border, dui->unpackFormat, dui->unpackType, data));
         } else {
             MOZ_ASSERT(depth == 1);
-            GL_CHECK(glTexImage2D(target, level, dui->internalFormat, width, height, border, dui->unpackFormat, dui->unpackType, data));
+            CC_GL_CHECK(glTexImage2D(target, level, dui->internalFormat, width, height, border, dui->unpackFormat, dui->unpackType, data));
         }
     }
 
@@ -96,11 +96,11 @@ namespace {
                   const webgl::PackingInfo& pi, const void* data)
     {
         if (IsTarget3D(target)) {
-            GL_CHECK(glTexSubImage3D(target, level, xOffset, yOffset, zOffset, width, height, depth, pi.format, pi.type, data));
+            CC_GL_CHECK(glTexSubImage3D(target, level, xOffset, yOffset, zOffset, width, height, depth, pi.format, pi.type, data));
         } else {
             MOZ_ASSERT(zOffset == 0);
             MOZ_ASSERT(depth == 1);
-            GL_CHECK(glTexSubImage2D(target, level, xOffset, yOffset, width, height, pi.format, pi.type, data));
+            CC_GL_CHECK(glTexSubImage2D(target, level, xOffset, yOffset, width, height, pi.format, pi.type, data));
         }
     }
 
@@ -112,11 +112,11 @@ namespace {
         const GLint border = 0;
 
         if (IsTarget3D(target)) {
-            GL_CHECK(glCompressedTexImage3D(target, level, internalFormat, width, height,
+            CC_GL_CHECK(glCompressedTexImage3D(target, level, internalFormat, width, height,
                                       depth, border, dataSize, data));
         } else {
             MOZ_ASSERT(depth == 1);
-            GL_CHECK(glCompressedTexImage2D(target, level, internalFormat, width, height,
+            CC_GL_CHECK(glCompressedTexImage2D(target, level, internalFormat, width, height,
                                       border, dataSize, data));
         }
     }
@@ -128,13 +128,13 @@ namespace {
                             GLsizei dataSize, const void* data)
     {
         if (IsTarget3D(target)) {
-            GL_CHECK(glCompressedTexSubImage3D(target, level, xOffset, yOffset, zOffset,
+            CC_GL_CHECK(glCompressedTexSubImage3D(target, level, xOffset, yOffset, zOffset,
                                          width, height, depth, sizedUnpackFormat, dataSize,
                                          data));
         } else {
             MOZ_ASSERT(zOffset == 0);
             MOZ_ASSERT(depth == 1);
-            GL_CHECK(glCompressedTexSubImage2D(target, level, xOffset, yOffset, width,
+            CC_GL_CHECK(glCompressedTexSubImage2D(target, level, xOffset, yOffset, width,
                                          height, sizedUnpackFormat, dataSize, data));
         }
     }
@@ -518,7 +518,7 @@ bool Texture2D::init(DeviceGraphics* device, const Options& options)
     if (ok)
     {
         _target = GL_TEXTURE_2D;
-        GL_CHECK(glGenTextures(1, &_glID));
+        CC_GL_CHECK(glGenTextures(1, &_glID));
 
         if (options.images.empty())
         {
@@ -564,8 +564,8 @@ void Texture2D::update(const Options& options)
         genMipmap = false;
     }
 
-    GL_CHECK(glActiveTexture(GL_TEXTURE0));
-    GL_CHECK(glBindTexture(GL_TEXTURE_2D, _glID));
+    CC_GL_CHECK(glActiveTexture(GL_TEXTURE0));
+    CC_GL_CHECK(glBindTexture(GL_TEXTURE_2D, _glID));
     if (!options.images.empty()) {
         setMipmap(options.images, options.flipY, options.premultiplyAlpha);
     }
@@ -573,8 +573,8 @@ void Texture2D::update(const Options& options)
     setTexInfo();
 
     if (genMipmap) {
-        GL_CHECK(glHint(GL_GENERATE_MIPMAP_HINT, GL_NICEST));
-        GL_CHECK(glGenerateMipmap(GL_TEXTURE_2D));
+        CC_GL_CHECK(glHint(GL_GENERATE_MIPMAP_HINT, GL_NICEST));
+        CC_GL_CHECK(glGenerateMipmap(GL_TEXTURE_2D));
     }
     _device->restoreTexture(0);
 }
@@ -583,8 +583,8 @@ void Texture2D::updateSubImage(const SubImageOption& option)
 {
     const GLTextureFmt& glFmt = glTextureFmt(_format);
 
-    GL_CHECK(glActiveTexture(GL_TEXTURE0));
-    GL_CHECK(glBindTexture(GL_TEXTURE_2D, _glID));
+    CC_GL_CHECK(glActiveTexture(GL_TEXTURE0));
+    CC_GL_CHECK(glBindTexture(GL_TEXTURE_2D, _glID));
     setSubImage(glFmt, option);
     _device->restoreTexture(0);
 }
@@ -593,8 +593,8 @@ void Texture2D::updateImage(const ImageOption& option)
 {
     const GLTextureFmt& glFmt = glTextureFmt(_format);
 
-    GL_CHECK(glActiveTexture(GL_TEXTURE0));
-    GL_CHECK(glBindTexture(GL_TEXTURE_2D, _glID));
+    CC_GL_CHECK(glActiveTexture(GL_TEXTURE0));
+    CC_GL_CHECK(glBindTexture(GL_TEXTURE_2D, _glID));
     setImage(glFmt, option);
     _device->restoreTexture(0);
 }
@@ -621,7 +621,7 @@ void Texture2D::setSubImage(const GLTextureFmt& glFmt, const SubImageOption& opt
             aligment = 1;
     }
 
-    GL_CHECK(glPixelStorei(GL_UNPACK_ALIGNMENT, aligment));
+    CC_GL_CHECK(glPixelStorei(GL_UNPACK_ALIGNMENT, aligment));
 
     GLenum dstFormat = glFmt.internalFormat;
     GLenum dstType = glFmt.pixelType;
@@ -668,7 +668,7 @@ void Texture2D::setImage(const GLTextureFmt& glFmt, const ImageOption& option)
             aligment = 1;
     }
 
-    GL_CHECK(glPixelStorei(GL_UNPACK_ALIGNMENT, aligment));
+    CC_GL_CHECK(glPixelStorei(GL_UNPACK_ALIGNMENT, aligment));
 
     webgl::DriverUnpackInfo dui;
     dui.internalFormat = glFmt.internalFormat;
@@ -731,14 +731,14 @@ void Texture2D::setTexInfo()
         mipFilter = Filter::NONE;
     }
 
-    GL_CHECK(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, glFilter(_minFilter, mipFilter)));
-    GL_CHECK(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, glFilter(_magFilter, Filter::NONE)));
-    GL_CHECK(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, (GLint)_wrapS));
-    GL_CHECK(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, (GLint)_wrapT));
+    CC_GL_CHECK(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, glFilter(_minFilter, mipFilter)));
+    CC_GL_CHECK(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, glFilter(_magFilter, Filter::NONE)));
+    CC_GL_CHECK(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, (GLint)_wrapS));
+    CC_GL_CHECK(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, (GLint)_wrapT));
 
     //TODO:    let ext = this._device.ext('EXT_texture_filter_anisotropic');
 //    if (ext) {
-//        GL_CHECK(glTexParameteri(GL_TEXTURE_2D, ext.TEXTURE_MAX_ANISOTROPY_EXT, this._anisotropy));
+//        CC_GL_CHECK(glTexParameteri(GL_TEXTURE_2D, ext.TEXTURE_MAX_ANISOTROPY_EXT, this._anisotropy));
 //    }
 }
 

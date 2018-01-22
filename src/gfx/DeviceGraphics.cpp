@@ -45,11 +45,11 @@ namespace
     {
         if (nullptr != dynamic_cast<const Texture2D*>(target))
         {
-            GL_CHECK(glFramebufferTexture2D(GL_FRAMEBUFFER, location, GL_TEXTURE_2D, target->getHandle(), 0));
+            CC_GL_CHECK(glFramebufferTexture2D(GL_FRAMEBUFFER, location, GL_TEXTURE_2D, target->getHandle(), 0));
         }
         else
         {
-            GL_CHECK(glFramebufferRenderbuffer(GL_FRAMEBUFFER, location, GL_RENDERBUFFER, target->getHandle()));
+            CC_GL_CHECK(glFramebufferRenderbuffer(GL_FRAMEBUFFER, location, GL_RENDERBUFFER, target->getHandle()));
         }
     }
 } // namespace {
@@ -79,11 +79,11 @@ void DeviceGraphics::setFrameBuffer(const FrameBuffer* fb)
     
     if (nullptr == fb)
     {
-        GL_CHECK(glBindFramebuffer(GL_FRAMEBUFFER, _defaultFbo));
+        CC_GL_CHECK(glBindFramebuffer(GL_FRAMEBUFFER, _defaultFbo));
         return;
     }
     
-    GL_CHECK(glBindFramebuffer(GL_FRAMEBUFFER, fb->getHandle()));
+    CC_GL_CHECK(glBindFramebuffer(GL_FRAMEBUFFER, fb->getHandle()));
     
     int i = 0;
     const auto& colorBuffers = fb->getColorBuffers();
@@ -91,7 +91,7 @@ void DeviceGraphics::setFrameBuffer(const FrameBuffer* fb)
         attach(GL_COLOR_ATTACHMENT0 + i, colorBuffer);
     for (i = static_cast<int>(colorBuffers.size()); i < _caps.maxColorAttatchments; ++i)
     {
-        GL_CHECK(glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + i, GL_TEXTURE_2D, 0, 0));
+        CC_GL_CHECK(glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + i, GL_TEXTURE_2D, 0, 0));
     }
     if (0 == colorBuffers.size())
     {
@@ -129,7 +129,7 @@ void DeviceGraphics::setViewport(int x, int y, int w, int h)
         _vy = y;
         _vw = w;
         _vh = h;
-        GL_CHECK(glViewport(_vx, _vy, _vw, _vh));
+        CC_GL_CHECK(glViewport(_vx, _vy, _vw, _vh));
     }
 }
 
@@ -154,43 +154,43 @@ void DeviceGraphics::clear(uint8_t flags, Color4F *color, double depth, int32_t 
     if (flags & ClearFlag::COLOR)
     {
         mask |= GL_COLOR_BUFFER_BIT;
-        GL_CHECK(glClearColor(color->r, color->g, color->b, color->a));
+        CC_GL_CHECK(glClearColor(color->r, color->g, color->b, color->a));
     }
     
     if (flags & ClearFlag::DEPTH)
     {
         mask |= GL_DEPTH_BUFFER_BIT;
-        GL_CHECK(glClearDepth(depth));
+        CC_GL_CHECK(glClearDepth(depth));
         
-        GL_CHECK(glEnable(GL_DEPTH_TEST));
-        GL_CHECK(glDepthMask(GL_TRUE));
-        GL_CHECK(glDepthFunc(GL_ALWAYS));
+        CC_GL_CHECK(glEnable(GL_DEPTH_TEST));
+        CC_GL_CHECK(glDepthMask(GL_TRUE));
+        CC_GL_CHECK(glDepthFunc(GL_ALWAYS));
     }
     
     if (flags & ClearFlag::STENCIL)
     {
         mask |= GL_STENCIL_BUFFER_BIT;
-        GL_CHECK(glClearStencil(stencil));
+        CC_GL_CHECK(glClearStencil(stencil));
     }
     
-    GL_CHECK(glClear(mask));
+    CC_GL_CHECK(glClear(mask));
     
     // Restore depth related state.
     if (flags & ClearFlag::DEPTH)
     {
         if (!_currentState.depthTest)
         {
-            GL_CHECK(glDisable(GL_DEPTH_TEST));
+            CC_GL_CHECK(glDisable(GL_DEPTH_TEST));
         }
         else
         {
             if (!_currentState.depthWrite)
             {
-                GL_CHECK(glDepthMask(GL_FALSE));
+                CC_GL_CHECK(glDepthMask(GL_FALSE));
             }
             if (_currentState.depthFunc != DepthFunc::ALWAYS)
             {
-                GL_CHECK(glDepthFunc(static_cast<GLenum>(_currentState.depthFunc)));
+                CC_GL_CHECK(glDepthFunc(static_cast<GLenum>(_currentState.depthFunc)));
             }
         }
     }
@@ -380,7 +380,7 @@ void DeviceGraphics::draw(size_t base, GLsizei count)
     auto nextIndexBuffer = _nextState.getIndexBuffer();
     if (_currentState.getIndexBuffer() != nextIndexBuffer)
     {
-        GL_CHECK(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, nextIndexBuffer ? nextIndexBuffer->getHandle() : 0));
+        CC_GL_CHECK(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, nextIndexBuffer ? nextIndexBuffer->getHandle() : 0));
     }
     
     //commit program
@@ -389,7 +389,7 @@ void DeviceGraphics::draw(size_t base, GLsizei count)
     {
         if (_nextState.getProgram()->isLinked())
         {
-            GL_CHECK(glUseProgram(_nextState.getProgram()->getHandle()));
+            CC_GL_CHECK(glUseProgram(_nextState.getProgram()->getHandle()));
         }
         else
         {
@@ -419,14 +419,14 @@ void DeviceGraphics::draw(size_t base, GLsizei count)
     // draw primitives
     if (nextIndexBuffer)
     {
-        GL_CHECK(glDrawElements(ENUM_CLASS_TO_GLENUM(_nextState.primitiveType),
+        CC_GL_CHECK(glDrawElements(CC_ENUM_CLASS_TO_GLENUM(_nextState.primitiveType),
                        count,
-                       ENUM_CLASS_TO_GLENUM(nextIndexBuffer->getFormat()),
+                       CC_ENUM_CLASS_TO_GLENUM(nextIndexBuffer->getFormat()),
                        (GLvoid *)(base * nextIndexBuffer->getBytesPerIndex())));
     }
     else
     {
-        GL_CHECK(glDrawArrays(ENUM_CLASS_TO_GLENUM(_nextState.primitiveType), (GLint)base, count));
+        CC_GL_CHECK(glDrawArrays(CC_ENUM_CLASS_TO_GLENUM(_nextState.primitiveType), (GLint)base, count));
     }
     
     _currentState = std::move(_nextState);
@@ -504,39 +504,34 @@ void DeviceGraphics::setUniformfv(const std::string& name, size_t count, const f
     setUniform(name, value, count * sizeof(float), UniformElementType::FLOAT);
 }
 
-void DeviceGraphics::setUniformVec2(const std::string& name, const cocos2d::Vec2& value)
+void DeviceGraphics::setUniformVec2(const std::string& name, const float* value)
 {
     setUniform(name, &value, sizeof(Vec2), UniformElementType::FLOAT);
 }
 
-void DeviceGraphics::setUniformVec3(const std::string& name, const cocos2d::Vec3& value)
+void DeviceGraphics::setUniformVec3(const std::string& name, const float* value)
 {
     setUniform(name, &value, sizeof(Vec3), UniformElementType::FLOAT);
 }
 
-void DeviceGraphics::setUniformVec4(const std::string& name, const cocos2d::Vec4& value)
+void DeviceGraphics::setUniformVec4(const std::string& name, const float* value)
 {
     setUniform(name, &value, sizeof(Vec4), UniformElementType::FLOAT);
 }
 
-void DeviceGraphics::setUniformMat2(const std::string& name, float* value)
+void DeviceGraphics::setUniformMat2(const std::string& name, const float* value)
 {
     setUniform(name, value, 4 * sizeof(float), UniformElementType::FLOAT);
 }
 
-void DeviceGraphics::setUniformMat3(const std::string& name, float* value)
+void DeviceGraphics::setUniformMat3(const std::string& name, const float* value)
 {
     setUniform(name, value, 9 * sizeof(float), UniformElementType::FLOAT);
 }
 
-void DeviceGraphics::setUniformMat4(const std::string& name, float* value)
+void DeviceGraphics::setUniformMat4(const std::string& name, const float* value)
 {
     setUniform(name, value, 16 * sizeof(float), UniformElementType::FLOAT);
-}
-
-void DeviceGraphics::setUniformMat4(const std::string& name, const cocos2d::Mat4& value)
-{
-    setUniform(name, value.m, 16 * sizeof(float), UniformElementType::FLOAT);
 }
 
 //
@@ -577,59 +572,59 @@ DeviceGraphics::~DeviceGraphics()
 
 void DeviceGraphics::initCaps()
 {
-    GL_CHECK(glGetIntegerv(GL_MAX_VERTEX_TEXTURE_IMAGE_UNITS, &_caps.maxVextexTextures));
-    GL_CHECK(glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &_caps.maxVertexAttributes));
+    CC_GL_CHECK(glGetIntegerv(GL_MAX_VERTEX_TEXTURE_IMAGE_UNITS, &_caps.maxVextexTextures));
+    CC_GL_CHECK(glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &_caps.maxVertexAttributes));
     // Need to emulate MAX_FRAGMENT/VERTEX_UNIFORM_VECTORS and MAX_VARYING_VECTORS
     // because desktop GL's corresponding queries return the number of components
     // whereas GLES2 return the number of vectors (each vector has 4 components).
     // Therefore, the value returned by desktop GL needs to be divided by 4.
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_MAC) || (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
-    GL_CHECK(glGetIntegerv(GL_MAX_FRAGMENT_UNIFORM_COMPONENTS, &_caps.maxFragUniforms));
+    CC_GL_CHECK(glGetIntegerv(GL_MAX_FRAGMENT_UNIFORM_COMPONENTS, &_caps.maxFragUniforms));
     _caps.maxFragUniforms /= 4;
 #else
-    GL_CHECK(glGetIntegerv(GL_MAX_FRAGMENT_UNIFORM_VECTORS, &_caps.maxFragUniforms));
+    CC_GL_CHECK(glGetIntegerv(GL_MAX_FRAGMENT_UNIFORM_VECTORS, &_caps.maxFragUniforms));
 #endif
 
-    GL_CHECK(glGetIntegerv(GL_MAX_TEXTURE_UNITS, &_caps.maxTextureUints));
+    CC_GL_CHECK(glGetIntegerv(GL_MAX_TEXTURE_UNITS, &_caps.maxTextureUints));
     
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
     // FIXME: how to get these infomations
     _caps.maxColorAttatchments = 1;
     _caps.maxDrawBuffers = 1;
 #else
-    GL_CHECK(glGetIntegerv(GL_MAX_COLOR_ATTACHMENTS, &_caps.maxColorAttatchments));
-    GL_CHECK(glGetIntegerv(GL_MAX_DRAW_BUFFERS, &_caps.maxDrawBuffers));
+    CC_GL_CHECK(glGetIntegerv(GL_MAX_COLOR_ATTACHMENTS, &_caps.maxColorAttatchments));
+    CC_GL_CHECK(glGetIntegerv(GL_MAX_DRAW_BUFFERS, &_caps.maxDrawBuffers));
 #endif
 }
 
 void DeviceGraphics::initStates()
 {
-    GL_CHECK(glDisable(GL_BLEND));
-    GL_CHECK(glBlendFunc(GL_ONE, GL_ZERO));
-    GL_CHECK(glBlendEquation(GL_FUNC_ADD));
-    GL_CHECK(glBlendColor(1, 1, 1, 1));
+    CC_GL_CHECK(glDisable(GL_BLEND));
+    CC_GL_CHECK(glBlendFunc(GL_ONE, GL_ZERO));
+    CC_GL_CHECK(glBlendEquation(GL_FUNC_ADD));
+    CC_GL_CHECK(glBlendColor(1, 1, 1, 1));
     
-    GL_CHECK(glColorMask(true, true, true, true));
+    CC_GL_CHECK(glColorMask(true, true, true, true));
     
-    GL_CHECK(glEnable(GL_CULL_FACE));
-    GL_CHECK(glCullFace(GL_BACK));
+    CC_GL_CHECK(glEnable(GL_CULL_FACE));
+    CC_GL_CHECK(glCullFace(GL_BACK));
     
-    GL_CHECK(glDisable(GL_DEPTH_TEST));
-    GL_CHECK(glDepthFunc(GL_LESS));
-    GL_CHECK(glDepthMask(GL_FALSE));
-    GL_CHECK(glDisable(GL_POLYGON_OFFSET_FILL));
-    GL_CHECK(glDepthRange(0, 1));
+    CC_GL_CHECK(glDisable(GL_DEPTH_TEST));
+    CC_GL_CHECK(glDepthFunc(GL_LESS));
+    CC_GL_CHECK(glDepthMask(GL_FALSE));
+    CC_GL_CHECK(glDisable(GL_POLYGON_OFFSET_FILL));
+    CC_GL_CHECK(glDepthRange(0, 1));
     
-    GL_CHECK(glDisable(GL_STENCIL_TEST));
-    GL_CHECK(glStencilFunc(GL_ALWAYS, 0, 0xff));
-    GL_CHECK(glStencilMask(0xff));
-    GL_CHECK(glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP));
+    CC_GL_CHECK(glDisable(GL_STENCIL_TEST));
+    CC_GL_CHECK(glStencilFunc(GL_ALWAYS, 0, 0xff));
+    CC_GL_CHECK(glStencilMask(0xff));
+    CC_GL_CHECK(glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP));
     
-    GL_CHECK(glClearDepth(1));
-    GL_CHECK(glClearColor(0, 0, 0, 0));
-    GL_CHECK(glClearStencil(0));
+    CC_GL_CHECK(glClearDepth(1));
+    CC_GL_CHECK(glClearColor(0, 0, 0, 0));
+    CC_GL_CHECK(glClearStencil(0));
     
-    GL_CHECK(glDisable(GL_SCISSOR_TEST));
+    CC_GL_CHECK(glDisable(GL_SCISSOR_TEST));
 }
 
 void DeviceGraphics::restoreTexture(uint32_t index)
@@ -637,18 +632,18 @@ void DeviceGraphics::restoreTexture(uint32_t index)
     auto texture = _currentState.getTexture(index);
     if (texture)
     {
-        GL_CHECK(glBindTexture(texture->getTarget(), texture->getHandle()));
+        CC_GL_CHECK(glBindTexture(texture->getTarget(), texture->getHandle()));
     }
     else
     {
-        GL_CHECK(glBindTexture(GL_TEXTURE_2D, 0));
+        CC_GL_CHECK(glBindTexture(GL_TEXTURE_2D, 0));
     }
 }
 
 void DeviceGraphics::restoreIndexBuffer()
 {
     auto ib = _currentState.getIndexBuffer();
-    GL_CHECK(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ib ? ib->getHandle(): 0));
+    CC_GL_CHECK(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ib ? ib->getHandle(): 0));
 }
 
 void DeviceGraphics::commitBlendStates()
@@ -668,7 +663,7 @@ void DeviceGraphics::commitBlendStates()
             _nextState.blendDst == BlendFactor::CONSTANT_COLOR ||
             _nextState.blendDst == BlendFactor::ONE_MINUS_CONSTANT_COLOR)
         {
-            GL_CHECK(glBlendColor((_nextState.blendColor >> 24) / 255.f,
+            CC_GL_CHECK(glBlendColor((_nextState.blendColor >> 24) / 255.f,
                          (_nextState.blendColor >> 16 & 0xff) / 255.f,
                          (_nextState.blendColor >> 8 & 0xff) / 255.f,
                          (_nextState.blendColor & 0xff) / 255.f));
@@ -677,18 +672,18 @@ void DeviceGraphics::commitBlendStates()
         
         if (_nextState.blendSepartion)
         {
-            GL_CHECK(glBlendFuncSeparate(ENUM_CLASS_TO_GLENUM(_nextState.blendSrc),
-                                ENUM_CLASS_TO_GLENUM(_nextState.blendDst),
-                                ENUM_CLASS_TO_GLENUM(_nextState.blendSrcAlpha),
-                                ENUM_CLASS_TO_GLENUM(_nextState.blendDstAlpha)));
-            GL_CHECK(glBlendEquationSeparate(ENUM_CLASS_TO_GLENUM(_nextState.blendEq),
-                                    ENUM_CLASS_TO_GLENUM(_nextState.blendAlphaEq)));
+            CC_GL_CHECK(glBlendFuncSeparate(CC_ENUM_CLASS_TO_GLENUM(_nextState.blendSrc),
+                                CC_ENUM_CLASS_TO_GLENUM(_nextState.blendDst),
+                                CC_ENUM_CLASS_TO_GLENUM(_nextState.blendSrcAlpha),
+                                CC_ENUM_CLASS_TO_GLENUM(_nextState.blendDstAlpha)));
+            CC_GL_CHECK(glBlendEquationSeparate(CC_ENUM_CLASS_TO_GLENUM(_nextState.blendEq),
+                                    CC_ENUM_CLASS_TO_GLENUM(_nextState.blendAlphaEq)));
         }
         else
         {
-            GL_CHECK(glBlendFunc(ENUM_CLASS_TO_GLENUM(_nextState.blendSrc),
-                        ENUM_CLASS_TO_GLENUM(_nextState.blendDst)));
-            GL_CHECK(glBlendEquation(ENUM_CLASS_TO_GLENUM(_nextState.blendEq)));
+            CC_GL_CHECK(glBlendFunc(CC_ENUM_CLASS_TO_GLENUM(_nextState.blendSrc),
+                        CC_ENUM_CLASS_TO_GLENUM(_nextState.blendDst)));
+            CC_GL_CHECK(glBlendEquation(CC_ENUM_CLASS_TO_GLENUM(_nextState.blendEq)));
         }
         
         return;
@@ -707,18 +702,18 @@ void DeviceGraphics::commitBlendStates()
     {
         if (_nextState.blendSepartion)
         {
-            GL_CHECK(glBlendFuncSeparate(ENUM_CLASS_TO_GLENUM(_nextState.blendSrc),
-                                ENUM_CLASS_TO_GLENUM(_nextState.blendDst),
-                                ENUM_CLASS_TO_GLENUM(_nextState.blendSrcAlpha),
-                                ENUM_CLASS_TO_GLENUM(_nextState.blendDstAlpha)));
-            GL_CHECK(glBlendEquationSeparate(ENUM_CLASS_TO_GLENUM(_nextState.blendEq),
-                                    ENUM_CLASS_TO_GLENUM(_nextState.blendAlphaEq)));
+            CC_GL_CHECK(glBlendFuncSeparate(CC_ENUM_CLASS_TO_GLENUM(_nextState.blendSrc),
+                                CC_ENUM_CLASS_TO_GLENUM(_nextState.blendDst),
+                                CC_ENUM_CLASS_TO_GLENUM(_nextState.blendSrcAlpha),
+                                CC_ENUM_CLASS_TO_GLENUM(_nextState.blendDstAlpha)));
+            CC_GL_CHECK(glBlendEquationSeparate(CC_ENUM_CLASS_TO_GLENUM(_nextState.blendEq),
+                                    CC_ENUM_CLASS_TO_GLENUM(_nextState.blendAlphaEq)));
         }
         else
         {
-            GL_CHECK(glBlendFunc(ENUM_CLASS_TO_GLENUM(_nextState.blendSrc),
-                        ENUM_CLASS_TO_GLENUM(_nextState.blendDst)));
-            GL_CHECK(glBlendEquation(ENUM_CLASS_TO_GLENUM(_nextState.blendEq)));
+            CC_GL_CHECK(glBlendFunc(CC_ENUM_CLASS_TO_GLENUM(_nextState.blendSrc),
+                        CC_ENUM_CLASS_TO_GLENUM(_nextState.blendDst)));
+            CC_GL_CHECK(glBlendEquation(CC_ENUM_CLASS_TO_GLENUM(_nextState.blendEq)));
         }
         
         return;
@@ -731,31 +726,31 @@ void DeviceGraphics::commitBlendStates()
             _currentState.blendSrcAlpha != _nextState.blendSrcAlpha ||
             _currentState.blendDstAlpha != _nextState.blendDstAlpha)
         {
-            GL_CHECK(glBlendFuncSeparate(ENUM_CLASS_TO_GLENUM(_nextState.blendSrc),
-                                ENUM_CLASS_TO_GLENUM(_nextState.blendDst),
-                                ENUM_CLASS_TO_GLENUM(_nextState.blendSrcAlpha),
-                                ENUM_CLASS_TO_GLENUM(_nextState.blendDstAlpha)));
+            CC_GL_CHECK(glBlendFuncSeparate(CC_ENUM_CLASS_TO_GLENUM(_nextState.blendSrc),
+                                CC_ENUM_CLASS_TO_GLENUM(_nextState.blendDst),
+                                CC_ENUM_CLASS_TO_GLENUM(_nextState.blendSrcAlpha),
+                                CC_ENUM_CLASS_TO_GLENUM(_nextState.blendDstAlpha)));
         }
     }
     
     if (_currentState.blendEq != _nextState.blendEq ||
         _currentState.blendAlphaEq != _nextState.blendAlphaEq)
     {
-        GL_CHECK(glBlendEquationSeparate(ENUM_CLASS_TO_GLENUM(_nextState.blendEq),
-                                ENUM_CLASS_TO_GLENUM(_nextState.blendAlphaEq)));
+        CC_GL_CHECK(glBlendEquationSeparate(CC_ENUM_CLASS_TO_GLENUM(_nextState.blendEq),
+                                CC_ENUM_CLASS_TO_GLENUM(_nextState.blendAlphaEq)));
     }
     else
     {
         if (_currentState.blendSrc != _nextState.blendSrc ||
             _currentState.blendDst != _nextState.blendDst)
         {
-            GL_CHECK(glBlendFunc(ENUM_CLASS_TO_GLENUM(_nextState.blendSrc),
-                        ENUM_CLASS_TO_GLENUM(_nextState.blendDst)));
+            CC_GL_CHECK(glBlendFunc(CC_ENUM_CLASS_TO_GLENUM(_nextState.blendSrc),
+                        CC_ENUM_CLASS_TO_GLENUM(_nextState.blendDst)));
         }
         
         if (_currentState.blendEq != _nextState.blendEq)
         {
-            GL_CHECK(glBlendEquation(ENUM_CLASS_TO_GLENUM(_nextState.blendEq)));
+            CC_GL_CHECK(glBlendEquation(CC_ENUM_CLASS_TO_GLENUM(_nextState.blendEq)));
         }
     }
 }
@@ -770,16 +765,16 @@ void DeviceGraphics::commitDepthStates()
             return;
         }
         
-        GL_CHECK(glEnable(GL_DEPTH_TEST));
-        GL_CHECK(glDepthFunc(ENUM_CLASS_TO_GLENUM(_nextState.depthFunc)));
-        GL_CHECK(glDepthMask(_nextState.depthWrite ? GL_TRUE : GL_FALSE));
+        CC_GL_CHECK(glEnable(GL_DEPTH_TEST));
+        CC_GL_CHECK(glDepthFunc(CC_ENUM_CLASS_TO_GLENUM(_nextState.depthFunc)));
+        CC_GL_CHECK(glDepthMask(_nextState.depthWrite ? GL_TRUE : GL_FALSE));
         
         return;
     }
     
     if (_currentState.depthWrite != _nextState.depthWrite)
     {
-        GL_CHECK(glDepthMask(_nextState.depthWrite ? GL_TRUE : GL_FALSE));
+        CC_GL_CHECK(glDepthMask(_nextState.depthWrite ? GL_TRUE : GL_FALSE));
     }
     
     if (!_nextState.depthTest)
@@ -789,8 +784,8 @@ void DeviceGraphics::commitDepthStates()
             _nextState.depthTest = true;
             _nextState.depthFunc = DepthFunc::ALWAYS;
             
-            GL_CHECK(glEnable(GL_DEPTH_TEST));
-            GL_CHECK(glDepthFunc(ENUM_CLASS_TO_GLENUM(_nextState.depthFunc)));
+            CC_GL_CHECK(glEnable(GL_DEPTH_TEST));
+            CC_GL_CHECK(glDepthFunc(CC_ENUM_CLASS_TO_GLENUM(_nextState.depthFunc)));
         }
         
         return;
@@ -798,7 +793,7 @@ void DeviceGraphics::commitDepthStates()
     
     if (_currentState.depthFunc != _nextState.depthFunc)
     {
-        GL_CHECK(glDepthFunc(ENUM_CLASS_TO_GLENUM(_nextState.depthFunc)));
+        CC_GL_CHECK(glDepthFunc(CC_ENUM_CLASS_TO_GLENUM(_nextState.depthFunc)));
     }
 }
 
@@ -816,34 +811,34 @@ void DeviceGraphics::commitStencilStates()
         
         if (_nextState.stencilSeparation)
         {
-            GL_CHECK(glStencilFuncSeparate(GL_FRONT,
-                                  ENUM_CLASS_TO_GLENUM(_nextState.stencilFuncFront),
-                                  ENUM_CLASS_TO_GLENUM(_nextState.stencilRefFront),
-                                  ENUM_CLASS_TO_GLENUM(_nextState.stencilMaskFront)));
-            GL_CHECK(glStencilMaskSeparate(GL_FRONT, ENUM_CLASS_TO_GLENUM(_nextState.stencilWriteMaskFront)));
-            GL_CHECK(glStencilOpSeparate(GL_FRONT,
-                                ENUM_CLASS_TO_GLENUM(_nextState.stencilFailOpFront),
-                                ENUM_CLASS_TO_GLENUM(_nextState.stencilZFailOpFront),
-                                ENUM_CLASS_TO_GLENUM(_nextState.stencilZPassOpFront)));
-            GL_CHECK(glStencilFuncSeparate(GL_BACK,
-                                  ENUM_CLASS_TO_GLENUM(_nextState.stencilFuncBack),
-                                  ENUM_CLASS_TO_GLENUM(_nextState.stencilRefBack),
-                                  ENUM_CLASS_TO_GLENUM(_nextState.stencilMaskBack)));
-            GL_CHECK(glStencilMaskSeparate(GL_BACK, ENUM_CLASS_TO_GLENUM(_nextState.stencilWriteMaskBack)));
-            GL_CHECK(glStencilOpSeparate(GL_BACK,
-                                ENUM_CLASS_TO_GLENUM(_nextState.stencilFailOpBack),
-                                ENUM_CLASS_TO_GLENUM(_nextState.stencilZFailOpBack),
-                                ENUM_CLASS_TO_GLENUM(_nextState.stencilZPassOpBack)));
+            CC_GL_CHECK(glStencilFuncSeparate(GL_FRONT,
+                                  CC_ENUM_CLASS_TO_GLENUM(_nextState.stencilFuncFront),
+                                  CC_ENUM_CLASS_TO_GLENUM(_nextState.stencilRefFront),
+                                  CC_ENUM_CLASS_TO_GLENUM(_nextState.stencilMaskFront)));
+            CC_GL_CHECK(glStencilMaskSeparate(GL_FRONT, CC_ENUM_CLASS_TO_GLENUM(_nextState.stencilWriteMaskFront)));
+            CC_GL_CHECK(glStencilOpSeparate(GL_FRONT,
+                                CC_ENUM_CLASS_TO_GLENUM(_nextState.stencilFailOpFront),
+                                CC_ENUM_CLASS_TO_GLENUM(_nextState.stencilZFailOpFront),
+                                CC_ENUM_CLASS_TO_GLENUM(_nextState.stencilZPassOpFront)));
+            CC_GL_CHECK(glStencilFuncSeparate(GL_BACK,
+                                  CC_ENUM_CLASS_TO_GLENUM(_nextState.stencilFuncBack),
+                                  CC_ENUM_CLASS_TO_GLENUM(_nextState.stencilRefBack),
+                                  CC_ENUM_CLASS_TO_GLENUM(_nextState.stencilMaskBack)));
+            CC_GL_CHECK(glStencilMaskSeparate(GL_BACK, CC_ENUM_CLASS_TO_GLENUM(_nextState.stencilWriteMaskBack)));
+            CC_GL_CHECK(glStencilOpSeparate(GL_BACK,
+                                CC_ENUM_CLASS_TO_GLENUM(_nextState.stencilFailOpBack),
+                                CC_ENUM_CLASS_TO_GLENUM(_nextState.stencilZFailOpBack),
+                                CC_ENUM_CLASS_TO_GLENUM(_nextState.stencilZPassOpBack)));
         }
         else
         {
-            GL_CHECK(glStencilFunc(ENUM_CLASS_TO_GLENUM(_nextState.stencilFuncFront),
-                          ENUM_CLASS_TO_GLENUM(_nextState.stencilRefFront),
-                          ENUM_CLASS_TO_GLENUM(_nextState.stencilMaskFront)));
-            GL_CHECK(glStencilMask(ENUM_CLASS_TO_GLENUM(_nextState.stencilWriteMaskFront)));
-            GL_CHECK(glStencilOp(ENUM_CLASS_TO_GLENUM(_nextState.stencilFailOpFront),
-                        ENUM_CLASS_TO_GLENUM(_nextState.stencilZFailOpFront),
-                        ENUM_CLASS_TO_GLENUM(_nextState.stencilZPassOpFront)));
+            CC_GL_CHECK(glStencilFunc(CC_ENUM_CLASS_TO_GLENUM(_nextState.stencilFuncFront),
+                          CC_ENUM_CLASS_TO_GLENUM(_nextState.stencilRefFront),
+                          CC_ENUM_CLASS_TO_GLENUM(_nextState.stencilMaskFront)));
+            CC_GL_CHECK(glStencilMask(CC_ENUM_CLASS_TO_GLENUM(_nextState.stencilWriteMaskFront)));
+            CC_GL_CHECK(glStencilOp(CC_ENUM_CLASS_TO_GLENUM(_nextState.stencilFailOpFront),
+                        CC_ENUM_CLASS_TO_GLENUM(_nextState.stencilZFailOpFront),
+                        CC_ENUM_CLASS_TO_GLENUM(_nextState.stencilZPassOpFront)));
         }
         
         return;
@@ -857,36 +852,36 @@ void DeviceGraphics::commitStencilStates()
         if (_nextState.stencilSeparation)
         {
             // front
-            GL_CHECK(glStencilFuncSeparate(GL_FRONT,
-                                  ENUM_CLASS_TO_GLENUM(_nextState.stencilFuncFront),
-                                  ENUM_CLASS_TO_GLENUM(_nextState.stencilRefFront),
-                                  ENUM_CLASS_TO_GLENUM(_nextState.stencilMaskFront)));
-            GL_CHECK(glStencilMaskSeparate(GL_FRONT, ENUM_CLASS_TO_GLENUM(_nextState.stencilWriteMaskFront)));
-            GL_CHECK(glStencilOpSeparate(GL_FRONT,
-                                ENUM_CLASS_TO_GLENUM(_nextState.stencilFailOpFront),
-                                ENUM_CLASS_TO_GLENUM(_nextState.stencilZFailOpFront),
-                                ENUM_CLASS_TO_GLENUM(_nextState.stencilZPassOpFront)));
+            CC_GL_CHECK(glStencilFuncSeparate(GL_FRONT,
+                                  CC_ENUM_CLASS_TO_GLENUM(_nextState.stencilFuncFront),
+                                  CC_ENUM_CLASS_TO_GLENUM(_nextState.stencilRefFront),
+                                  CC_ENUM_CLASS_TO_GLENUM(_nextState.stencilMaskFront)));
+            CC_GL_CHECK(glStencilMaskSeparate(GL_FRONT, CC_ENUM_CLASS_TO_GLENUM(_nextState.stencilWriteMaskFront)));
+            CC_GL_CHECK(glStencilOpSeparate(GL_FRONT,
+                                CC_ENUM_CLASS_TO_GLENUM(_nextState.stencilFailOpFront),
+                                CC_ENUM_CLASS_TO_GLENUM(_nextState.stencilZFailOpFront),
+                                CC_ENUM_CLASS_TO_GLENUM(_nextState.stencilZPassOpFront)));
             
             // back
-            GL_CHECK(glStencilFuncSeparate(GL_BACK,
-                                  ENUM_CLASS_TO_GLENUM(_nextState.stencilFuncBack),
-                                  ENUM_CLASS_TO_GLENUM(_nextState.stencilRefBack),
-                                  ENUM_CLASS_TO_GLENUM(_nextState.stencilMaskBack)));
-            GL_CHECK(glStencilMaskSeparate(GL_BACK, ENUM_CLASS_TO_GLENUM(_nextState.stencilWriteMaskBack)));
-            GL_CHECK(glStencilOpSeparate(GL_BACK,
-                                ENUM_CLASS_TO_GLENUM(_nextState.stencilFailOpBack),
-                                ENUM_CLASS_TO_GLENUM(_nextState.stencilZFailOpBack),
-                                ENUM_CLASS_TO_GLENUM(_nextState.stencilZPassOpBack)));
+            CC_GL_CHECK(glStencilFuncSeparate(GL_BACK,
+                                  CC_ENUM_CLASS_TO_GLENUM(_nextState.stencilFuncBack),
+                                  CC_ENUM_CLASS_TO_GLENUM(_nextState.stencilRefBack),
+                                  CC_ENUM_CLASS_TO_GLENUM(_nextState.stencilMaskBack)));
+            CC_GL_CHECK(glStencilMaskSeparate(GL_BACK, CC_ENUM_CLASS_TO_GLENUM(_nextState.stencilWriteMaskBack)));
+            CC_GL_CHECK(glStencilOpSeparate(GL_BACK,
+                                CC_ENUM_CLASS_TO_GLENUM(_nextState.stencilFailOpBack),
+                                CC_ENUM_CLASS_TO_GLENUM(_nextState.stencilZFailOpBack),
+                                CC_ENUM_CLASS_TO_GLENUM(_nextState.stencilZPassOpBack)));
         }
         else
         {
-            GL_CHECK(glStencilFunc(ENUM_CLASS_TO_GLENUM(_nextState.stencilFuncFront),
-                          ENUM_CLASS_TO_GLENUM(_nextState.stencilRefFront),
-                          ENUM_CLASS_TO_GLENUM(_nextState.stencilMaskFront)));
-            GL_CHECK(glStencilMask(ENUM_CLASS_TO_GLENUM(_nextState.stencilWriteMaskFront)));
-            GL_CHECK(glStencilOp(ENUM_CLASS_TO_GLENUM(_nextState.stencilFailOpFront),
-                        ENUM_CLASS_TO_GLENUM(_nextState.stencilZFailOpFront),
-                        ENUM_CLASS_TO_GLENUM(_nextState.stencilZPassOpFront)));
+            CC_GL_CHECK(glStencilFunc(CC_ENUM_CLASS_TO_GLENUM(_nextState.stencilFuncFront),
+                          CC_ENUM_CLASS_TO_GLENUM(_nextState.stencilRefFront),
+                          CC_ENUM_CLASS_TO_GLENUM(_nextState.stencilMaskFront)));
+            CC_GL_CHECK(glStencilMask(CC_ENUM_CLASS_TO_GLENUM(_nextState.stencilWriteMaskFront)));
+            CC_GL_CHECK(glStencilOp(CC_ENUM_CLASS_TO_GLENUM(_nextState.stencilFailOpFront),
+                        CC_ENUM_CLASS_TO_GLENUM(_nextState.stencilZFailOpFront),
+                        CC_ENUM_CLASS_TO_GLENUM(_nextState.stencilZPassOpFront)));
         }
         
         return;
@@ -899,23 +894,23 @@ void DeviceGraphics::commitStencilStates()
             _currentState.stencilRefFront != _nextState.stencilRefFront ||
             _currentState.stencilMaskFront != _nextState.stencilMaskFront)
         {
-            GL_CHECK(glStencilFuncSeparate(GL_FRONT,
-                                  ENUM_CLASS_TO_GLENUM(_nextState.stencilFuncFront),
-                                  ENUM_CLASS_TO_GLENUM(_nextState.stencilRefFront),
-                                  ENUM_CLASS_TO_GLENUM(_nextState.stencilMaskFront)));
+            CC_GL_CHECK(glStencilFuncSeparate(GL_FRONT,
+                                  CC_ENUM_CLASS_TO_GLENUM(_nextState.stencilFuncFront),
+                                  CC_ENUM_CLASS_TO_GLENUM(_nextState.stencilRefFront),
+                                  CC_ENUM_CLASS_TO_GLENUM(_nextState.stencilMaskFront)));
         }
         if (_currentState.stencilWriteMaskFront != _nextState.stencilWriteMaskFront)
         {
-            GL_CHECK(glStencilMaskSeparate(GL_FRONT, ENUM_CLASS_TO_GLENUM(_nextState.stencilWriteMaskFront)));
+            CC_GL_CHECK(glStencilMaskSeparate(GL_FRONT, CC_ENUM_CLASS_TO_GLENUM(_nextState.stencilWriteMaskFront)));
         }
         if (_currentState.stencilFailOpFront != _nextState.stencilFailOpFront ||
             _currentState.stencilZFailOpFront != _nextState.stencilZFailOpFront ||
             _currentState.stencilZPassOpFront != _nextState.stencilZPassOpFront)
         {
-            GL_CHECK(glStencilOpSeparate(GL_FRONT,
-                                ENUM_CLASS_TO_GLENUM(_nextState.stencilFailOpFront),
-                                ENUM_CLASS_TO_GLENUM(_nextState.stencilZFailOpFront),
-                                ENUM_CLASS_TO_GLENUM(_nextState.stencilZPassOpFront)));
+            CC_GL_CHECK(glStencilOpSeparate(GL_FRONT,
+                                CC_ENUM_CLASS_TO_GLENUM(_nextState.stencilFailOpFront),
+                                CC_ENUM_CLASS_TO_GLENUM(_nextState.stencilZFailOpFront),
+                                CC_ENUM_CLASS_TO_GLENUM(_nextState.stencilZPassOpFront)));
         }
         
         // back
@@ -923,21 +918,21 @@ void DeviceGraphics::commitStencilStates()
             _currentState.stencilRefBack != _nextState.stencilRefBack ||
             _currentState.stencilMaskBack != _nextState.stencilMaskBack)
         {
-            GL_CHECK(glStencilFuncSeparate(GL_BACK,
-                                  ENUM_CLASS_TO_GLENUM(_nextState.stencilFuncBack),
-                                  ENUM_CLASS_TO_GLENUM(_nextState.stencilRefBack),
-                                  ENUM_CLASS_TO_GLENUM(_nextState.stencilMaskBack)));
+            CC_GL_CHECK(glStencilFuncSeparate(GL_BACK,
+                                  CC_ENUM_CLASS_TO_GLENUM(_nextState.stencilFuncBack),
+                                  CC_ENUM_CLASS_TO_GLENUM(_nextState.stencilRefBack),
+                                  CC_ENUM_CLASS_TO_GLENUM(_nextState.stencilMaskBack)));
         }
         if (_currentState.stencilWriteMaskBack != _nextState.stencilWriteMaskBack)
-            GL_CHECK(glStencilMaskSeparate(GL_BACK, ENUM_CLASS_TO_GLENUM(_nextState.stencilWriteMaskBack)));
+            CC_GL_CHECK(glStencilMaskSeparate(GL_BACK, CC_ENUM_CLASS_TO_GLENUM(_nextState.stencilWriteMaskBack)));
         if (_currentState.stencilFailOpBack != _nextState.stencilFailOpBack ||
             _currentState.stencilZFailOpBack != _nextState.stencilZFailOpBack ||
             _currentState.stencilZPassOpBack != _nextState.stencilZPassOpBack)
         {
-            GL_CHECK(glStencilOpSeparate(GL_BACK,
-                                ENUM_CLASS_TO_GLENUM(_nextState.stencilFailOpBack),
-                                ENUM_CLASS_TO_GLENUM(_nextState.stencilZFailOpBack),
-                                ENUM_CLASS_TO_GLENUM(_nextState.stencilZPassOpBack)));
+            CC_GL_CHECK(glStencilOpSeparate(GL_BACK,
+                                CC_ENUM_CLASS_TO_GLENUM(_nextState.stencilFailOpBack),
+                                CC_ENUM_CLASS_TO_GLENUM(_nextState.stencilZFailOpBack),
+                                CC_ENUM_CLASS_TO_GLENUM(_nextState.stencilZPassOpBack)));
         }
     }
     else
@@ -946,23 +941,23 @@ void DeviceGraphics::commitStencilStates()
             _currentState.stencilRefFront != _nextState.stencilRefFront ||
             _currentState.stencilMaskFront != _nextState.stencilMaskFront)
         {
-            GL_CHECK(glStencilFunc(ENUM_CLASS_TO_GLENUM(_nextState.stencilFuncFront),
-                          ENUM_CLASS_TO_GLENUM(_nextState.stencilRefFront),
-                          ENUM_CLASS_TO_GLENUM(_nextState.stencilMaskFront)));
+            CC_GL_CHECK(glStencilFunc(CC_ENUM_CLASS_TO_GLENUM(_nextState.stencilFuncFront),
+                          CC_ENUM_CLASS_TO_GLENUM(_nextState.stencilRefFront),
+                          CC_ENUM_CLASS_TO_GLENUM(_nextState.stencilMaskFront)));
         }
         
         if (_currentState.stencilWriteMaskFront != _nextState.stencilWriteMaskFront)
         {
-            GL_CHECK(glStencilMask(ENUM_CLASS_TO_GLENUM(_nextState.stencilWriteMaskFront)));
+            CC_GL_CHECK(glStencilMask(CC_ENUM_CLASS_TO_GLENUM(_nextState.stencilWriteMaskFront)));
         }
         
         if (_currentState.stencilFailOpFront != _nextState.stencilFailOpFront ||
             _currentState.stencilZFailOpFront != _nextState.stencilZFailOpFront ||
             _currentState.stencilZPassOpFront != _nextState.stencilZPassOpFront)
         {
-            GL_CHECK(glStencilOp(ENUM_CLASS_TO_GLENUM(_nextState.stencilFailOpFront),
-                        ENUM_CLASS_TO_GLENUM(_nextState.stencilZFailOpFront),
-                        ENUM_CLASS_TO_GLENUM(_nextState.stencilZPassOpFront)));
+            CC_GL_CHECK(glStencilOp(CC_ENUM_CLASS_TO_GLENUM(_nextState.stencilFailOpFront),
+                        CC_ENUM_CLASS_TO_GLENUM(_nextState.stencilZFailOpFront),
+                        CC_ENUM_CLASS_TO_GLENUM(_nextState.stencilZPassOpFront)));
         }
     }
 }
@@ -974,12 +969,12 @@ void DeviceGraphics::commitCullMode()
     
     if (_nextState.cullMode == CullMode::NONE)
     {
-        GL_CHECK(glDisable(GL_CULL_FACE));
+        CC_GL_CHECK(glDisable(GL_CULL_FACE));
         return;
     }
     
-    GL_CHECK(glEnable(GL_CULL_FACE));
-    GL_CHECK(glCullFace(ENUM_CLASS_TO_GLENUM(_nextState.cullMode)));
+    CC_GL_CHECK(glEnable(GL_CULL_FACE));
+    CC_GL_CHECK(glCullFace(CC_ENUM_CLASS_TO_GLENUM(_nextState.cullMode)));
 }
 void DeviceGraphics::commitVertexBuffer()
 {
@@ -1019,7 +1014,7 @@ void DeviceGraphics::commitVertexBuffer()
             if (!vb)
                 continue;
             
-            GL_CHECK(glBindBuffer(GL_ARRAY_BUFFER, vb->getHandle()));
+            CC_GL_CHECK(glBindBuffer(GL_ARRAY_BUFFER, vb->getHandle()));
             
             auto vboffset = _nextState.getVertexBufferOffset(i);
             const auto& attributes = _nextState.getProgram()->getAttributes();
@@ -1036,15 +1031,15 @@ void DeviceGraphics::commitVertexBuffer()
                 
                 if (0 == _enabledAtrributes[attr.location])
                 {
-                    GL_CHECK(glEnableVertexAttribArray(attr.location));
+                    CC_GL_CHECK(glEnableVertexAttribArray(attr.location));
                     _enabledAtrributes[attr.location] = 1;
                 }
                 _newAttributes[attr.location] = 1;
                 
                 // glVertexAttribPointer (GLuint index, GLint size, GLenum type, GLboolean normalized, GLsizei stride, const GLvoid *pointer);
-                GL_CHECK(glVertexAttribPointer(attr.location,
+                CC_GL_CHECK(glVertexAttribPointer(attr.location,
                                       el.num,
-                                      ENUM_CLASS_TO_GLENUM(el.type),
+                                      CC_ENUM_CLASS_TO_GLENUM(el.type),
                                       el.normalize,
                                       el.stride,
                                       (GLvoid*)(el.offset + vboffset * el.stride)));
@@ -1056,7 +1051,7 @@ void DeviceGraphics::commitVertexBuffer()
         {
             if (_enabledAtrributes[i] != _newAttributes[i])
             {
-                GL_CHECK(glDisableVertexAttribArray(i));
+                CC_GL_CHECK(glDisableVertexAttribArray(i));
                 _enabledAtrributes[i] = 0;
             }
         }
@@ -1076,8 +1071,8 @@ void DeviceGraphics::commitTextures()
             auto texture = nextTextureUnits[i];
             if (texture)
             {
-                GL_CHECK(glActiveTexture(GL_TEXTURE0 + i));
-                GL_CHECK(glBindTexture(texture->getTarget(),
+                CC_GL_CHECK(glActiveTexture(GL_TEXTURE0 + i));
+                CC_GL_CHECK(glBindTexture(texture->getTarget(),
                                        texture->getHandle()));
             }
         }

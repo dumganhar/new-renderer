@@ -24,63 +24,88 @@
 
 #pragma once
 
-#include "platform/CCPlatformConfig.h"
+#include "config.h"
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
 #include <android/log.h>
 #endif
 
-#ifndef GFX_BEGIN
-#define GFX_BEGIN namespace cocos2d { namespace gfx {
-#endif // GFX_BEGIN
+#define NS_CC_BASE_BEGIN                     namespace cocos2d { namespace base {
+#define NS_CC_BASE_END                       }}
+#define USING_NS_CC_BASE                     using namespace cocos2d::base
 
-#ifndef GFX_END
-#define GFX_END }}
-#endif // GFX_END
+#define NS_CC_CC_BEGIN                      namespace cocos2d { namespace gfx {
+#define NS_CC_CC_END                        }}
+#define USING_NS_CC_GFX                      using namespace cocos2d::gfx
 
-//#ifndef DISALLOW_COPY_ASSIGN_AND_MOVE
+#define NS_CC_RENDERER_BEGIN                 namespace cocos2d { namespace renderer {
+#define NS_CC_RENDERER_END                   }}
+#define USING_NS_CC_RENDERER                 using namespace cocos2d::renderer
+
+#ifndef CC_SAFE_DELETE
+#define CC_SAFE_DELETE(p)           do { delete (p); (p) = nullptr; } while(0)
+#endif
+
+#ifndef CC_SAFE_DELETE_ARRAY
+#define CC_SAFE_DELETE_ARRAY(p)     do { if(p) { delete[] (p); (p) = nullptr; } } while(0)
+#endif
+
+#ifndef CC_SAFE_FREE
+#define CC_SAFE_FREE(p)             do { if(p) { free(p); (p) = nullptr; } } while(0)
+#endif
+
+#ifndef CC_SAFE_RELEASE
+#define CC_SAFE_RELEASE(p)          do { if(p) { (p)->release(); } } while(0)
+#endif
+
+#ifndef CC_SAFE_RELEASE_NULL
+#define CC_SAFE_RELEASE_NULL(p)     do { if(p) { (p)->release(); (p) = nullptr; } } while(0)
+#endif
+
+#ifndef CC_SAFE_RETAIN
+#define CC_SAFE_RETAIN(p)           do { if(p) { (p)->retain(); } } while(0)
+#endif
+
+#ifndef CC_BREAK_IF
+#define CC_BREAK_IF(cond)           if(cond) break
+#endif
+
+#ifndef CC_DISALLOW_COPY_ASSIGN_AND_MOVE
     #define CC_DISALLOW_COPY_ASSIGN_AND_MOVE(type) \
         type(const type&) = delete; \
         type& operator =(const type&) = delete; \
         type(type &&) = delete; \
         type& operator =(const type &&) = delete;
-//#endif // DISALLOW_COPY_ASSIGN_AND_MOVE
+#endif // CC_DISALLOW_COPY_ASSIGN_AND_MOVE
 
-#define CC_UINT    unsigned int
 
-#define GFX_LOG_TAG "gfx"
-#define GFX_QUOTEME_(x) #x
-#define GFX_QUOTEME(x) GFX_QUOTEME_(x)
+#define CC_LOG_TAG "cocos2d"
+#define CC_QUOTEME_(x) #x
+#define CC_QUOTEME(x) CC_QUOTEME_(x)
 
 #if defined(COCOS2D_DEBUG) && COCOS2D_DEBUG > 0
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-#define GFX_LOGV(fmt, ...) __android_log_print(ANDROID_LOG_VERBOSE, GFX_LOG_TAG, " (" GFX_QUOTEME(__LINE__) "): " fmt "\n", ##__VA_ARGS__)
+#define CCLOGV(fmt, ...) __android_log_print(ANDROID_LOG_VERBOSE, CC_LOG_TAG, " (" CC_QUOTEME(__LINE__) "): " fmt "\n", ##__VA_ARGS__)
 #else
-#define GFX_LOGV(fmt, ...) printf("V/" GFX_LOG_TAG " (" GFX_QUOTEME(__LINE__) "): " fmt "\n", ##__VA_ARGS__)
+#define CCLOGV(fmt, ...) printf("V/" CC_LOG_TAG " (" CC_QUOTEME(__LINE__) "): " fmt "\n", ##__VA_ARGS__)
 #endif // (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
 #else
-#define GFX_LOGV(fmt, ...) do {} while(false)
+#define CCLOGV(fmt, ...) do {} while(false)
 #endif // defined(COCOS2D_DEBUG) && COCOS2D_DEBUG > 0
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-#define GFX_LOGD(fmt, ...) __android_log_print(ANDROID_LOG_DEBUG, GFX_LOG_TAG, " (" GFX_QUOTEME(__LINE__) "): " fmt "\n", ##__VA_ARGS__)
-#define GFX_LOGI(fmt, ...) __android_log_print(ANDROID_LOG_INFO, GFX_LOG_TAG, " (" GFX_QUOTEME(__LINE__) "): " fmt "\n", ##__VA_ARGS__)
-#define GFX_LOGW(fmt, ...) __android_log_print(ANDROID_LOG_WARN, GFX_LOG_TAG, " (" GFX_QUOTEME(__LINE__) "): " fmt "\n", ##__VA_ARGS__)
-#define GFX_LOGE(fmt, ...) __android_log_print(ANDROID_LOG_ERROR, GFX_LOG_TAG, " (" GFX_QUOTEME(__LINE__) "): " fmt "\n", ##__VA_ARGS__)
+#define CCLOGD(fmt, ...) __android_log_print(ANDROID_LOG_DEBUG, CC_LOG_TAG, " (" CC_QUOTEME(__LINE__) "): " fmt "\n", ##__VA_ARGS__)
+#define CCLOGI(fmt, ...) __android_log_print(ANDROID_LOG_INFO, CC_LOG_TAG, " (" CC_QUOTEME(__LINE__) "): " fmt "\n", ##__VA_ARGS__)
+#define CCLOGW(fmt, ...) __android_log_print(ANDROID_LOG_WARN, CC_LOG_TAG, " (" CC_QUOTEME(__LINE__) "): " fmt "\n", ##__VA_ARGS__)
+#define CCLOGE(fmt, ...) __android_log_print(ANDROID_LOG_ERROR, CC_LOG_TAG, " (" CC_QUOTEME(__LINE__) "): " fmt "\n", ##__VA_ARGS__)
 #else
-#define GFX_LOGD(fmt, ...) printf("D/" GFX_LOG_TAG " (" GFX_QUOTEME(__LINE__) "): " fmt "\n", ##__VA_ARGS__)
-#define GFX_LOGI(fmt, ...) printf("I/" GFX_LOG_TAG " (" GFX_QUOTEME(__LINE__) "): " fmt "\n", ##__VA_ARGS__)
-#define GFX_LOGW(fmt, ...) printf("W/" GFX_LOG_TAG " (" GFX_QUOTEME(__LINE__) "): " fmt "\n", ##__VA_ARGS__)
-#define GFX_LOGE(fmt, ...) printf("E/" GFX_LOG_TAG " (" GFX_QUOTEME(__LINE__) "): " fmt "\n", ##__VA_ARGS__)
+#define CCLOGD(fmt, ...) printf("D/" CC_LOG_TAG " (" CC_QUOTEME(__LINE__) "): " fmt "\n", ##__VA_ARGS__)
+#define CCLOGI(fmt, ...) printf("I/" CC_LOG_TAG " (" CC_QUOTEME(__LINE__) "): " fmt "\n", ##__VA_ARGS__)
+#define CCLOGW(fmt, ...) printf("W/" CC_LOG_TAG " (" CC_QUOTEME(__LINE__) "): " fmt "\n", ##__VA_ARGS__)
+#define CCLOGE(fmt, ...) printf("E/" CC_LOG_TAG " (" CC_QUOTEME(__LINE__) "): " fmt "\n", ##__VA_ARGS__)
 #endif // (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
 
-
-#define GFX_DEBUG 1 // TODO: remove this
-
-#define GFX_SAFE_RELEASE(p) do { if((p) != nullptr) (p)->release(); } while(false)
-#define GFX_SAFE_RETAIN(p) do { if((p) != nullptr) (p)->retain(); } while(false)
-
-#define GFX_DEFINE_CREATE_METHOD_0(clsName, initMethod) \
+#define CC_DEFINE_CREATE_METHOD_0(clsName, initMethod) \
 static clsName* create() \
 { \
     clsName* ret = new (std::nothrow) clsName(); \
@@ -93,7 +118,7 @@ static clsName* create() \
     return nullptr; \
 }
 
-#define GFX_DEFINE_CREATE_METHOD_1(clsName, initMethod, arg0Type) \
+#define CC_DEFINE_CREATE_METHOD_1(clsName, initMethod, arg0Type) \
 static clsName* create(arg0Type arg0) \
 { \
     clsName* ret = new (std::nothrow) clsName(); \
@@ -106,7 +131,7 @@ static clsName* create(arg0Type arg0) \
     return nullptr; \
 }
 
-#define GFX_DEFINE_CREATE_METHOD_2(clsName, initMethod, arg0Type, arg1Type) \
+#define CC_DEFINE_CREATE_METHOD_2(clsName, initMethod, arg0Type, arg1Type) \
 static clsName* create(arg0Type arg0, arg1Type arg1) \
 { \
     clsName* ret = new (std::nothrow) clsName(); \
@@ -119,7 +144,7 @@ static clsName* create(arg0Type arg0, arg1Type arg1) \
     return nullptr; \
 }
 
-#define GFX_DEFINE_CREATE_METHOD_3(clsName, initMethod, arg0Type, arg1Type, arg2Type) \
+#define CC_DEFINE_CREATE_METHOD_3(clsName, initMethod, arg0Type, arg1Type, arg2Type) \
 static clsName* create(arg0Type arg0, arg1Type arg1, arg2Type arg2) \
 { \
     clsName* ret = new (std::nothrow) clsName(); \
@@ -132,7 +157,7 @@ static clsName* create(arg0Type arg0, arg1Type arg1, arg2Type arg2) \
     return nullptr; \
 }
 
-#define GFX_DEFINE_CREATE_METHOD_4(clsName, initMethod, arg0Type, arg1Type, arg2Type, arg3Type) \
+#define CC_DEFINE_CREATE_METHOD_4(clsName, initMethod, arg0Type, arg1Type, arg2Type, arg3Type) \
 static clsName* create(arg0Type arg0, arg1Type arg1, arg2Type arg2, arg3Type arg3) \
 { \
     clsName* ret = new (std::nothrow) clsName(); \
@@ -145,7 +170,7 @@ static clsName* create(arg0Type arg0, arg1Type arg1, arg2Type arg2, arg3Type arg
     return nullptr; \
 }
 
-#define GFX_DEFINE_CREATE_METHOD_5(clsName, initMethod, arg0Type, arg1Type, arg2Type, arg3Type, arg4Type) \
+#define CC_DEFINE_CREATE_METHOD_5(clsName, initMethod, arg0Type, arg1Type, arg2Type, arg3Type, arg4Type) \
 static clsName* create(arg0Type arg0, arg1Type arg1, arg2Type arg2, arg3Type arg3, arg4Type arg4) \
 { \
     clsName* ret = new (std::nothrow) clsName(); \
@@ -158,7 +183,7 @@ static clsName* create(arg0Type arg0, arg1Type arg1, arg2Type arg2, arg3Type arg
     return nullptr; \
 }
 
-#define GFX_DEFINE_CREATE_METHOD_6(clsName, initMethod, arg0Type, arg1Type, arg2Type, arg3Type, arg4Type, arg5Type) \
+#define CC_DEFINE_CREATE_METHOD_6(clsName, initMethod, arg0Type, arg1Type, arg2Type, arg3Type, arg4Type, arg5Type) \
 static clsName* create(arg0Type arg0, arg1Type arg1, arg2Type arg2, arg3Type arg3, arg4Type arg4, arg5Type arg5) \
 { \
     clsName* ret = new (std::nothrow) clsName(); \
@@ -172,19 +197,21 @@ static clsName* create(arg0Type arg0, arg1Type arg1, arg2Type arg2, arg3Type arg
 }
 
 // enum class to GLENUM
-#define ENUM_CLASS_TO_GLENUM(value)  static_cast<GLenum>(value)
+#define CC_ENUM_CLASS_TO_GLENUM(value)  static_cast<GLenum>(value)
 
-#define _GL_CHECK(_call) \
-                do { \
-                    _call; \
-                    GLenum gl_err = glGetError(); \
-                    if (0 != gl_err) \
-                        GFX_LOGE(#_call "; GL error 0x%x: %s", gl_err, glEnumName(gl_err)); \
-                } while(false)
+#define _CC_GL_CHECK(_call) \
+    do { \
+        _call; \
+        GLenum gl_err = glGetError(); \
+        if (0 != gl_err) \
+            CCLOGE(#_call "; GL error 0x%x: %s", gl_err, glEnumName(gl_err)); \
+    } while(false)
 
 
 #if COCOS2D_DEBUG > 0
-#   define GL_CHECK(_call)   _GL_CHECK(_call)
+#   define CC_GL_CHECK(_call)   _CC_GL_CHECK(_call)
 #else
-#   define GL_CHECK(_call)   _call
-#endif // BGFX_CONFIG_DEBUG
+#   define CC_GL_CHECK(_call)   _call
+#endif // BCC_CONFIG_DEBUG
+
+

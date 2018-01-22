@@ -22,14 +22,45 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#pragma once
-
-#include "CCIndexBuffer.h"
-#include "CCVertexBuffer.h"
-#include "CCDeviceGraphics.h"
-#include "CCFrameBuffer.h"
-#include "CCState.h"
 #include "CCRenderBuffer.h"
-#include "CCRenderTarget.h"
-#include "CCTexture2D.h"
-#include "CCProgram.h"
+#include "CCGFXUtils.h"
+
+GFX_BEGIN
+
+RenderBuffer::RenderBuffer()
+: _device(nullptr)
+, _format(Format::RGBA4)
+, _width(0)
+, _height(0)
+{
+
+}
+
+RenderBuffer::~RenderBuffer()
+{
+    if (_glID == 0)
+    {
+        GFX_LOGE("The render-buffer (%p) is invalid!", this);
+        return;
+    }
+
+    CC_GL_CHECK(glDeleteRenderbuffers(1, &_glID));
+}
+
+bool RenderBuffer::init(DeviceGraphics* device, Format format, uint16_t width, uint16_t height)
+{
+    _device = device;
+    _format = format;
+    _width = width;
+    _height = height;
+    
+    GLint oldRenderBuffer;
+    glGetIntegerv(GL_RENDERBUFFER_BINDING, &oldRenderBuffer);
+    CC_GL_CHECK(glGenRenderbuffers(1, &_glID));
+    CC_GL_CHECK(glBindRenderbuffer(GL_RENDERBUFFER, _glID));
+    CC_GL_CHECK(glRenderbufferStorage(GL_RENDERBUFFER, (GLenum)format, width, height));
+    CC_GL_CHECK(glBindRenderbuffer(GL_RENDERBUFFER, oldRenderBuffer));
+    return true;
+}
+
+GFX_END

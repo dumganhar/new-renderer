@@ -1,6 +1,6 @@
 /****************************************************************************
 Copyright (c) 2010-2012 cocos2d-x.org
-Copyright (c) 2013-2017 Chukong Technologies Inc.
+Copyright (c) 2013-2016 Chukong Technologies Inc.
 
 http://www.cocos2d-x.org
 
@@ -23,11 +23,49 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ****************************************************************************/
 
-#ifndef __CCGL_H__
-#define __CCGL_H__
+#ifndef __PLATFORM_CCGL_H__
+#define __PLATFORM_CCGL_H__
+/// @cond DO_NOT_SHOW
 
 #include "platform/CCPlatformConfig.h"
-#if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
+
+#if CC_TARGET_PLATFORM == CC_PLATFORM_MAC
+
+#import <OpenGL/gl.h>
+#import <OpenGL/glext.h>
+
+//cjh #define CC_GL_DEPTH24_STENCIL8      -1
+//
+//
+//#define glDeleteVertexArrays            glDeleteVertexArraysAPPLE
+//#define glGenVertexArrays               glGenVertexArraysAPPLE
+//#define glBindVertexArray               glBindVertexArrayAPPLE
+//#define glClearDepthf                   glClearDepth
+//#define glDepthRangef                   glDepthRange
+//#define glReleaseShaderCompiler(xxx)
+
+#elif CC_TARGET_PLATFORM == CC_PLATFORM_IOS
+
+#include <OpenGLES/ES3/gl.h>
+#include <OpenGLES/ES3/glext.h>
+
+#define glClearDepth                glClearDepthf
+#define glDepthRange                glDepthRangef
+//#define glDeleteVertexArrays        glDeleteVertexArraysOES
+//#define glGenVertexArrays           glGenVertexArraysOES
+//#define glBindVertexArray           glBindVertexArrayOES
+//#define glMapBuffer                 glMapBufferOES
+//#define glUnmapBuffer               glUnmapBufferOES
+//
+//#define GL_DEPTH24_STENCIL8         GL_DEPTH24_STENCIL8_OES
+//#define GL_DEPTH_STENCIL            GL_DEPTH_STENCIL_OES
+//#define GL_WRITE_ONLY               GL_WRITE_ONLY_OES
+
+#define GL_MAX_TEXTURE_UNITS    GL_MAX_TEXTURE_IMAGE_UNITS
+#define GL_MAX_SAMPLES_APPLE    GL_MAX_SAMPLES
+
+#elif CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
+
 
 #define glClearDepth                glClearDepthf
 #define glDeleteVertexArrays        glDeleteVertexArraysOES
@@ -35,19 +73,19 @@ THE SOFTWARE.
 #define glBindVertexArray           glBindVertexArrayOES
 #define glMapBuffer                 glMapBufferOES
 #define glUnmapBuffer               glUnmapBufferOES
-#define glTexImage3D				glTexImage3DOES
-#define glCompressedTexImage3D		glCompressedTexImage3DOES
-#define glCompressedTexSubImage3D	glCompressedTexSubImage3DOES
+#define glTexImage3D                glTexImage3DOES
+#define glCompressedTexImage3D        glCompressedTexImage3DOES
+#define glCompressedTexSubImage3D    glCompressedTexSubImage3DOES
 #define glTexSubImage3D             glTexSubImage3DOES
-#define glDepthRange				glDepthRangef
-#define glSubImage3D				glSubImage3DOES
+#define glDepthRange                glDepthRangef
+#define glSubImage3D                glSubImage3DOES
 
 #define GL_DEPTH24_STENCIL8         GL_DEPTH24_STENCIL8_OES
 #define GL_WRITE_ONLY               GL_WRITE_ONLY_OES
 
 #define GL_MAX_TEXTURE_UNITS        GL_MAX_TEXTURE_IMAGE_UNITS
 
-// GL_GLEXT_PROTOTYPES isn't defined in glplatform.h on android ndk r7 
+// GL_GLEXT_PROTOTYPES isn't defined in glplatform.h on android ndk r7
 // we manually define it here
 #include <GLES2/gl2platform.h>
 #ifndef GL_GLEXT_PROTOTYPES
@@ -73,7 +111,14 @@ extern PFNGLDELETEVERTEXARRAYSOESPROC glDeleteVertexArraysOESEXT;
 #define glBindVertexArrayOES glBindVertexArrayOESEXT
 #define glDeleteVertexArraysOES glDeleteVertexArraysOESEXT
 
+#elif CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
 
-#endif // CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
+#elif CC_TARGET_PLATFORM == CC_PLATFORM_WINRT
 
-#endif // __CCGL_H__
+#elif CC_TARGET_PLATFORM == CC_PLATFORM_LINUX
+
+#endif
+
+/// @endcond
+#endif /* __PLATFORM_CCPLATFORMDEFINE_H__*/
+

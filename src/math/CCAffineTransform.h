@@ -26,7 +26,7 @@ THE SOFTWARE.
 #ifndef __MATH_CCAFFINETRANSFORM_H__
 #define __MATH_CCAFFINETRANSFORM_H__
 
-#include "platform/CCPlatformMacros.h"
+#include "macros.h"
 
 #include "math/CCGeometry.h"
 #include "math/CCMath.h"

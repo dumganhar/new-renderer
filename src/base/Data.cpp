@@ -23,9 +23,9 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#include "base/CCData.h"
+#include "base/Data.h"
 
-NS_CC_BEGIN
+NS_CC_BASE_BEGIN
 
 const Data Data::Null;
 
@@ -132,4 +132,4 @@ unsigned char* Data::takeBuffer(ssize_t* size)
     return buffer;
 }
 
-NS_CC_END
+NS_CC_BASE_END

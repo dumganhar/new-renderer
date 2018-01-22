@@ -23,10 +23,9 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __CCDATA_H__
-#define __CCDATA_H__
+#pragma once
 
-#include "platform/CCPlatformMacros.h"
+#include "macros.h"
 #include <stdint.h> // for ssize_t on android
 #include <string>   // for ssize_t on linux
 #include "platform/CCStdC.h" // for ssize_t on window
@@ -36,12 +35,10 @@
  * @js NA
  * @lua NA
  */
-NS_CC_BEGIN
+NS_CC_BASE_BEGIN
 
 class CC_DLL Data
 {
-    friend class Properties;
-
 public:
     /**
      * This parameter is defined for convenient reference if a null Data object is needed.
@@ -150,7 +147,7 @@ private:
 };
 
 
-NS_CC_END
+NS_CC_BASE_END
 
 /** @} */
-#endif // __CCDATA_H__
+

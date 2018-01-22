@@ -1,6 +1,6 @@
 /****************************************************************************
 Copyright (c) 2010-2012 cocos2d-x.org
-Copyright (c) 2013-2016 Chukong Technologies Inc.
+Copyright (c) 2013-2017 Chukong Technologies
 
 http://www.cocos2d-x.org
 
@@ -23,27 +23,72 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ****************************************************************************/
 
-#ifndef __PLATFORM_MAC_CCGL_H__
-#define __PLATFORM_MAC_CCGL_H__
+#pragma once
 
-#include "platform/CCPlatformConfig.h"
-#if CC_TARGET_PLATFORM == CC_PLATFORM_MAC
+#include "macros.h"
 
-#import <OpenGL/gl.h>
-#import <OpenGL/glext.h>
+NS_CC_BASE_BEGIN
 
-//cjh #define CC_GL_DEPTH24_STENCIL8      -1
-//
-//
-//#define glDeleteVertexArrays            glDeleteVertexArraysAPPLE
-//#define glGenVertexArrays               glGenVertexArraysAPPLE
-//#define glBindVertexArray               glBindVertexArrayAPPLE
-//#define glClearDepthf                   glClearDepth
-//#define glDepthRangef                   glDepthRange
-//#define glReleaseShaderCompiler(xxx)
+/**
+ * Ref is used for reference count management. If a class inherits from Ref,
+ * then it is easy to be shared in different places.
+ * @js NA
+ */
+class Ref
+{
+public:
+    /**
+     * Retains the ownership.
+     *
+     * This increases the Ref's reference count.
+     *
+     * @see release, autorelease
+     * @js NA
+     */
+    void retain();
 
+    /**
+     * Releases the ownership immediately.
+     *
+     * This decrements the Ref's reference count.
+     *
+     * If the reference count reaches 0 after the decrement, this Ref is
+     * destructed.
+     *
+     * @see retain, autorelease
+     * @js NA
+     */
+    void release();
 
-#endif // __PLATFORM_MAC_CCGL_H__
+    /**
+     * Returns the Ref's current reference count.
+     *
+     * @returns The Ref's reference count.
+     * @js NA
+     */
+    unsigned int getReferenceCount() const;
 
-#endif //s CC_TARGET_PLATFORM == CC_PLATFORM_MAC
+protected:
+    /**
+     * Constructor
+     *
+     * The Ref's reference count is 1 after construction.
+     * @js NA
+     */
+    Ref();
 
+public:
+    /**
+     * Destructor
+     *
+     * @js NA
+     * @lua NA
+     */
+    virtual ~Ref();
+
+protected:
+    /// count of references
+    unsigned int _referenceCount;
+};
+
+NS_CC_BASE_END
