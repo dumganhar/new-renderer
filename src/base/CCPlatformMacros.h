@@ -33,50 +33,6 @@ Copyright (c) 2013-2016 Chukong Technologies
 #include "platform/CCPlatformConfig.h"
 #include "platform/CCPlatformDefine.h"
 
-/** @def CREATE_FUNC(__TYPE__)
- * Define a create function for a specific type, such as Layer.
- *
- * @param __TYPE__  class type to add create(), such as Layer.
- */
-#define CREATE_FUNC(__TYPE__) \
-static __TYPE__* create() \
-{ \
-    __TYPE__ *pRet = new(std::nothrow) __TYPE__(); \
-    if (pRet && pRet->init()) \
-    { \
-        pRet->autorelease(); \
-        return pRet; \
-    } \
-    else \
-    { \
-        delete pRet; \
-        pRet = nullptr; \
-        return nullptr; \
-    } \
-}
-
-/** @def CC_ENABLE_CACHE_TEXTURE_DATA
- * Enable it if you want to cache the texture data.
- * Not enabling for Emscripten any more -- doesn't seem necessary and don't want
- * to be different from other platforms unless there's a good reason.
- *
- * @since v0.99.5
- */
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID) || (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT)
-    #define CC_ENABLE_CACHE_TEXTURE_DATA       1
-#else
-    #define CC_ENABLE_CACHE_TEXTURE_DATA       0
-#endif
-
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID) || (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) || (CC_TARGET_PLATFORM == CC_PLATFORM_EMSCRIPTEN)
-    /** Application will crash in glDrawElements function on some win32 computers and some android devices.
-     *  Indices should be bound again while drawing to avoid this bug.
-     */
-    #define CC_REBIND_INDICES_BUFFER  1
-#else
-    #define CC_REBIND_INDICES_BUFFER  0
-#endif
-
 // Generic macros
 
 /// @name namespace cocos2d
@@ -94,99 +50,6 @@ static __TYPE__* create() \
 #endif
 //  end of namespace group
 /// @}
-
-/** @def CC_PROPERTY_READONLY
- * It is used to declare a protected variable. We can use getter to read the variable.
- *
- * @param varType     the type of variable.
- * @param varName     variable name.
- * @param funName     "get + funName" will be the name of the getter.
- * @warning   The getter is a public virtual function, you should rewrite it first.
- *            The variables and methods declared after CC_PROPERTY_READONLY are all public.
- *            If you need protected or private, please declare.
- */
-#define CC_PROPERTY_READONLY(varType, varName, funName)\
-protected: varType varName;\
-public: virtual varType get##funName(void) const;
-
-#define CC_PROPERTY_READONLY_PASS_BY_REF(varType, varName, funName)\
-protected: varType varName;\
-public: virtual const varType& get##funName(void) const;
-
-/** @def CC_PROPERTY
- * It is used to declare a protected variable.
- * We can use getter to read the variable, and use the setter to change the variable.
- *
- * @param varType     The type of variable.
- * @param varName     Variable name.
- * @param funName     "get + funName" will be the name of the getter.
- *                    "set + funName" will be the name of the setter.
- * @warning   The getter and setter are public virtual functions, you should rewrite them first.
- *            The variables and methods declared after CC_PROPERTY are all public.
- *            If you need protected or private, please declare.
- */
-#define CC_PROPERTY(varType, varName, funName)\
-protected: varType varName;\
-public: virtual varType get##funName(void) const;\
-public: virtual void set##funName(varType var);
-
-#define CC_PROPERTY_PASS_BY_REF(varType, varName, funName)\
-protected: varType varName;\
-public: virtual const varType& get##funName(void) const;\
-public: virtual void set##funName(const varType& var);
-
-/** @def CC_SYNTHESIZE_READONLY
- * It is used to declare a protected variable. We can use getter to read the variable.
- *
- * @param varType     The type of variable.
- * @param varName     Variable name.
- * @param funName     "get + funName" will be the name of the getter.
- * @warning   The getter is a public inline function.
- *            The variables and methods declared after CC_SYNTHESIZE_READONLY are all public.
- *            If you need protected or private, please declare.
- */
-#define CC_SYNTHESIZE_READONLY(varType, varName, funName)\
-protected: varType varName;\
-public: virtual varType get##funName(void) const { return varName; }
-
-#define CC_SYNTHESIZE_READONLY_PASS_BY_REF(varType, varName, funName)\
-protected: varType varName;\
-public: virtual const varType& get##funName(void) const { return varName; }
-
-/** @def CC_SYNTHESIZE
- * It is used to declare a protected variable.
- * We can use getter to read the variable, and use the setter to change the variable.
- *
- * @param varType     The type of variable.
- * @param varName     Variable name.
- * @param funName     "get + funName" will be the name of the getter.
- *                    "set + funName" will be the name of the setter.
- * @warning   The getter and setter are public inline functions.
- *            The variables and methods declared after CC_SYNTHESIZE are all public.
- *            If you need protected or private, please declare.
- */
-#define CC_SYNTHESIZE(varType, varName, funName)\
-protected: varType varName;\
-public: virtual varType get##funName(void) const { return varName; }\
-public: virtual void set##funName(varType var){ varName = var; }
-
-#define CC_SYNTHESIZE_PASS_BY_REF(varType, varName, funName)\
-protected: varType varName;\
-public: virtual const varType& get##funName(void) const { return varName; }\
-public: virtual void set##funName(const varType& var){ varName = var; }
-
-#define CC_SYNTHESIZE_RETAIN(varType, varName, funName)    \
-private: varType varName; \
-public: virtual varType get##funName(void) const { return varName; } \
-public: virtual void set##funName(varType var)   \
-{ \
-    if (varName != var) \
-    { \
-        CC_SAFE_RETAIN(var); \
-        CC_SAFE_RELEASE(varName); \
-        varName = var; \
-    } \
-}
 
 #define CC_SAFE_DELETE(p)           do { delete (p); (p) = nullptr; } while(0)
 #define CC_SAFE_DELETE_ARRAY(p)     do { if(p) { delete[] (p); (p) = nullptr; } } while(0)
@@ -229,13 +92,6 @@ public: virtual void set##funName(varType var)   \
 #define CCLOGINFO(format,...)   cocos2d::log(format, ##__VA_ARGS__)
 #define CCLOGWARN(...) __CCLOGWITHFUNCTION(__VA_ARGS__)
 #endif // COCOS2D_DEBUG
-
-/** Lua engine debug */
-#if !defined(COCOS2D_DEBUG) || COCOS2D_DEBUG == 0 || CC_LUA_ENGINE_DEBUG == 0
-#define LUALOG(...)
-#else
-#define LUALOG(format, ...)     cocos2d::log(format, ##__VA_ARGS__)
-#endif // Lua engine debug
 
 //  end of debug group
 /// @}

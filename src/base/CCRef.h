@@ -34,7 +34,7 @@ NS_CC_BEGIN
  * then it is easy to be shared in different places.
  * @js NA
  */
-class  Ref
+class Ref
 {
 public:
     /**
@@ -59,23 +59,6 @@ public:
      * @js NA
      */
     void release();
-
-    /**
-     * Releases the ownership sometime soon automatically.
-     *
-     * This decrements the Ref's reference count at the end of current
-     * autorelease pool block.
-     *
-     * If the reference count reaches 0 after the decrement, this Ref is
-     * destructed.
-     *
-     * @returns The Ref itself.
-     *
-     * @see AutoreleasePool, retain, release
-     * @js NA
-     * @lua NA
-     */
-     Ref* autorelease();
 
     /**
      * Returns the Ref's current reference count.
