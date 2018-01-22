@@ -24,13 +24,13 @@
 
 #pragma once
 
-#include "../types.h"
+#include "base/types.h"
 
 #include <string>
 #include <vector>
 #include <unordered_map>
 
-GFX_BEGIN
+NS_CC_GFX_BEGIN
 
 class VertexFormat
 {
@@ -99,4 +99,4 @@ private:
     friend class VertexBuffer;
 };
 
-GFX_END
+NS_CC_GFX_END

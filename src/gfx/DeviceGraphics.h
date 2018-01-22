@@ -28,13 +28,12 @@
 #include <string>
 #include <vector>
 #include <unordered_map>
-#include "base/ccTypes.h"
-#include "../macro.h"
-#include "../types.h"
-#include "CCState.h"
+#include "base/macros.h"
+#include "base/types.h"
+#include "State.h"
 
 
-GFX_BEGIN
+NS_CC_GFX_BEGIN
 
 class FrameBuffer;
 class VertexBuffer;
@@ -181,4 +180,4 @@ private:
     friend class Texture2D;
 };
 
-GFX_END
+NS_CC_GFX_END

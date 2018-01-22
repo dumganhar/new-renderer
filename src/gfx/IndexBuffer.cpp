@@ -22,10 +22,10 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#include "CCIndexBuffer.h"
-#include "CCDeviceGraphics.h"
+#include "IndexBuffer.h"
+#include "DeviceGraphics.h"
 
-GFX_BEGIN
+NS_CC_GFX_BEGIN
 
 IndexBuffer::IndexBuffer()
 : _device(nullptr)
@@ -40,7 +40,7 @@ IndexBuffer::~IndexBuffer()
 {
     if (_glID == 0)
     {
-        GFX_LOGE("The index buffer is invalid!");
+        CCLOGE("The index buffer is invalid!");
         return;
     }
 
@@ -86,13 +86,13 @@ void IndexBuffer::update(uint32_t offset, const void* data, size_t dataByteLengt
 {
     if (_glID == 0)
     {
-        GFX_LOGE("The buffer is destroyed");
+        CCLOGE("The buffer is destroyed");
         return;
     }
 
     if (data && dataByteLength + offset > _bytes)
     {
-        GFX_LOGE("Failed to update index buffer data, bytes exceed.");
+        CCLOGE("Failed to update index buffer data, bytes exceed.");
         return;
     }
 
@@ -116,4 +116,4 @@ void IndexBuffer::update(uint32_t offset, const void* data, size_t dataByteLengt
     _device->restoreIndexBuffer();
 }
 
-GFX_END
+NS_CC_GFX_END

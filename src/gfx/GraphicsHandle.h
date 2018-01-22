@@ -24,12 +24,12 @@
 
 #pragma once
 
-#include "../macro.h"
-#include "../types.h"
+#include "base/macros.h"
+#include "base/types.h"
 
-#include "base/CCRef.h"
+#include "base/Ref.h"
 
-GFX_BEGIN
+NS_CC_GFX_BEGIN
 
 class GraphicsHandle : public Ref
 {
@@ -42,4 +42,4 @@ protected:
     GLuint _glID;
 };
 
-GFX_END
+NS_CC_GFX_END

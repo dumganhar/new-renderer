@@ -24,14 +24,14 @@
 
 #pragma once
 
-#include "../macro.h"
-#include "../types.h"
+#include "base/macros.h"
+#include "base/types.h"
 
-#include "base/CCRef.h"
+#include "base/Ref.h"
 
-#include "CCGraphicsHandle.h"
+#include "GraphicsHandle.h"
 
-GFX_BEGIN
+NS_CC_GFX_BEGIN
 
 class RenderTarget : public GraphicsHandle
 {
@@ -39,4 +39,4 @@ public:
     virtual ~RenderTarget() {}
 };
 
-GFX_END
+NS_CC_GFX_END

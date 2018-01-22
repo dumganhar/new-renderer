@@ -26,10 +26,10 @@
 
 #include <stdint.h>
 #include <vector>
-#include "../macro.h"
-#include "../types.h"
+#include "base/macros.h"
+#include "base/types.h"
 
-GFX_BEGIN
+NS_CC_GFX_BEGIN
 
 class VertexBuffer;
 class IndexBuffer;
@@ -115,4 +115,4 @@ private:
     Program *_program;
 };
 
-GFX_END
+NS_CC_GFX_END

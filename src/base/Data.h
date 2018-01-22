@@ -25,17 +25,16 @@
 
 #pragma once
 
-#include "macros.h"
+#include "base/macros.h"
 #include <stdint.h> // for ssize_t on android
 #include <string>   // for ssize_t on linux
-#include "platform/CCStdC.h" // for ssize_t on window
 
 /**
  * @addtogroup base
  * @js NA
  * @lua NA
  */
-NS_CC_BASE_BEGIN
+NS_CC_BEGIN
 
 class CC_DLL Data
 {
@@ -147,7 +146,7 @@ private:
 };
 
 
-NS_CC_BASE_END
+NS_CC_END
 
 /** @} */
 

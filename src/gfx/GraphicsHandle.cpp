@@ -22,9 +22,9 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#include "CCGraphicsHandle.h"
+#include "GraphicsHandle.h"
 
-GFX_BEGIN
+NS_CC_GFX_BEGIN
 
 GraphicsHandle::GraphicsHandle()
 : _glID(0)
@@ -37,4 +37,4 @@ GraphicsHandle::~GraphicsHandle()
 
 }
 
-GFX_END
+NS_CC_GFX_END

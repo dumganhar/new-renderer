@@ -16,7 +16,7 @@
 		1AC3D1A02015BE1A00ED072F /* Ref.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1AC3D02D2015BE1A00ED072F /* Ref.cpp */; };
 		1AC3D1A12015BE1A00ED072F /* Ref.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1AC3D02D2015BE1A00ED072F /* Ref.cpp */; };
 		1AC3D1A22015BE1A00ED072F /* Ref.h in Headers */ = {isa = PBXBuildFile; fileRef = 1AC3D02E2015BE1A00ED072F /* Ref.h */; };
-		1AC3D1A32015BE1A00ED072F /* macro.h in Headers */ = {isa = PBXBuildFile; fileRef = 1AC3D02F2015BE1A00ED072F /* macro.h */; };
+		1AC3D1A32015BE1A00ED072F /* macros.h in Headers */ = {isa = PBXBuildFile; fileRef = 1AC3D02F2015BE1A00ED072F /* macros.h */; };
 		1AC3D1A52015BE1A00ED072F /* Data.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1AC3D0312015BE1A00ED072F /* Data.cpp */; };
 		1AC3D1A62015BE1A00ED072F /* Data.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1AC3D0312015BE1A00ED072F /* Data.cpp */; };
 		1AC3D2042015BE1B00ED072F /* GFX.h in Headers */ = {isa = PBXBuildFile; fileRef = 1AC3D17D2015BE1A00ED072F /* GFX.h */; };
@@ -64,23 +64,13 @@
 		1AC3D2512015C9F200ED072F /* Vec2.h in Headers */ = {isa = PBXBuildFile; fileRef = 1AC3D2312015C9F200ED072F /* Vec2.h */; };
 		1AC3D2522015C9F200ED072F /* Mat4.h in Headers */ = {isa = PBXBuildFile; fileRef = 1AC3D2322015C9F200ED072F /* Mat4.h */; };
 		1AC3D2532015C9F200ED072F /* Quaternion.h in Headers */ = {isa = PBXBuildFile; fileRef = 1AC3D23A2015C9F200ED072F /* Quaternion.h */; };
-		1AC3D2542015C9F200ED072F /* TransformUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 1AC3D23B2015C9F200ED072F /* TransformUtils.h */; };
 		1AC3D2552015C9F200ED072F /* MathUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1AC3D23C2015C9F200ED072F /* MathUtil.cpp */; };
 		1AC3D2562015C9F200ED072F /* MathUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1AC3D23C2015C9F200ED072F /* MathUtil.cpp */; };
-		1AC3D2572015C9F200ED072F /* CCGeometry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1AC3D23E2015C9F200ED072F /* CCGeometry.cpp */; };
-		1AC3D2582015C9F200ED072F /* CCGeometry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1AC3D23E2015C9F200ED072F /* CCGeometry.cpp */; };
 		1AC3D2592015C9F200ED072F /* Vec4.h in Headers */ = {isa = PBXBuildFile; fileRef = 1AC3D23F2015C9F200ED072F /* Vec4.h */; };
-		1AC3D25A2015C9F200ED072F /* CCAffineTransform.h in Headers */ = {isa = PBXBuildFile; fileRef = 1AC3D2402015C9F200ED072F /* CCAffineTransform.h */; };
 		1AC3D25B2015C9F200ED072F /* Mat4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1AC3D2412015C9F200ED072F /* Mat4.cpp */; };
 		1AC3D25C2015C9F200ED072F /* Mat4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1AC3D2412015C9F200ED072F /* Mat4.cpp */; };
-		1AC3D25D2015C9F200ED072F /* CCGeometry.h in Headers */ = {isa = PBXBuildFile; fileRef = 1AC3D2422015C9F200ED072F /* CCGeometry.h */; };
-		1AC3D25E2015C9F200ED072F /* TransformUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1AC3D2432015C9F200ED072F /* TransformUtils.cpp */; };
-		1AC3D25F2015C9F200ED072F /* TransformUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1AC3D2432015C9F200ED072F /* TransformUtils.cpp */; };
 		1AC3D2602015C9F200ED072F /* Quaternion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1AC3D2442015C9F200ED072F /* Quaternion.cpp */; };
 		1AC3D2612015C9F200ED072F /* Quaternion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1AC3D2442015C9F200ED072F /* Quaternion.cpp */; };
-		1AC3D2622015C9F200ED072F /* CCVertex.h in Headers */ = {isa = PBXBuildFile; fileRef = 1AC3D2452015C9F200ED072F /* CCVertex.h */; };
-		1AC3D2632015C9F200ED072F /* CCVertex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1AC3D2462015C9F200ED072F /* CCVertex.cpp */; };
-		1AC3D2642015C9F200ED072F /* CCVertex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1AC3D2462015C9F200ED072F /* CCVertex.cpp */; };
 		1AC3D2652015C9F200ED072F /* Vec4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1AC3D2472015C9F200ED072F /* Vec4.cpp */; };
 		1AC3D2662015C9F200ED072F /* Vec4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1AC3D2472015C9F200ED072F /* Vec4.cpp */; };
 		1AC3D2672015C9F200ED072F /* Vec3.h in Headers */ = {isa = PBXBuildFile; fileRef = 1AC3D2482015C9F200ED072F /* Vec3.h */; };
@@ -91,8 +81,6 @@
 		1AC3D26C2015C9F200ED072F /* CCMath.h in Headers */ = {isa = PBXBuildFile; fileRef = 1AC3D24D2015C9F200ED072F /* CCMath.h */; };
 		1AC3D26D2015C9F200ED072F /* Vec3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1AC3D24E2015C9F200ED072F /* Vec3.cpp */; };
 		1AC3D26E2015C9F200ED072F /* Vec3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1AC3D24E2015C9F200ED072F /* Vec3.cpp */; };
-		1AC3D26F2015C9F200ED072F /* CCAffineTransform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1AC3D24F2015C9F200ED072F /* CCAffineTransform.cpp */; };
-		1AC3D2702015C9F200ED072F /* CCAffineTransform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1AC3D24F2015C9F200ED072F /* CCAffineTransform.cpp */; };
 		1AC3D2722015CD8200ED072F /* base.h in Headers */ = {isa = PBXBuildFile; fileRef = 1AC3D2712015CD8200ED072F /* base.h */; };
 /* End PBXBuildFile section */
 
@@ -118,7 +106,7 @@
 		1AC3D02C2015BE1A00ED072F /* types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = types.h; sourceTree = "<group>"; };
 		1AC3D02D2015BE1A00ED072F /* Ref.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Ref.cpp; sourceTree = "<group>"; };
 		1AC3D02E2015BE1A00ED072F /* Ref.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ref.h; sourceTree = "<group>"; };
-		1AC3D02F2015BE1A00ED072F /* macro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = macro.h; sourceTree = "<group>"; };
+		1AC3D02F2015BE1A00ED072F /* macros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = macros.h; sourceTree = "<group>"; };
 		1AC3D0312015BE1A00ED072F /* Data.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Data.cpp; sourceTree = "<group>"; };
 		1AC3D17D2015BE1A00ED072F /* GFX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFX.h; sourceTree = "<group>"; };
 		1AC3D17E2015BE1A00ED072F /* State.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = State.cpp; sourceTree = "<group>"; };
@@ -151,25 +139,17 @@
 		1AC3D2312015C9F200ED072F /* Vec2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vec2.h; sourceTree = "<group>"; };
 		1AC3D2322015C9F200ED072F /* Mat4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mat4.h; sourceTree = "<group>"; };
 		1AC3D2332015C9F200ED072F /* Quaternion.inl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Quaternion.inl; sourceTree = "<group>"; };
-		1AC3D2342015C9F200ED072F /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		1AC3D2352015C9F200ED072F /* MathUtilNeon64.inl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MathUtilNeon64.inl; sourceTree = "<group>"; };
 		1AC3D2362015C9F200ED072F /* Mat4.inl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Mat4.inl; sourceTree = "<group>"; };
 		1AC3D2372015C9F200ED072F /* Vec3.inl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Vec3.inl; sourceTree = "<group>"; };
 		1AC3D2382015C9F200ED072F /* Vec2.inl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Vec2.inl; sourceTree = "<group>"; };
 		1AC3D2392015C9F200ED072F /* MathUtilSSE.inl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MathUtilSSE.inl; sourceTree = "<group>"; };
 		1AC3D23A2015C9F200ED072F /* Quaternion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Quaternion.h; sourceTree = "<group>"; };
-		1AC3D23B2015C9F200ED072F /* TransformUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransformUtils.h; sourceTree = "<group>"; };
 		1AC3D23C2015C9F200ED072F /* MathUtil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MathUtil.cpp; sourceTree = "<group>"; };
 		1AC3D23D2015C9F200ED072F /* Vec4.inl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Vec4.inl; sourceTree = "<group>"; };
-		1AC3D23E2015C9F200ED072F /* CCGeometry.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCGeometry.cpp; sourceTree = "<group>"; };
 		1AC3D23F2015C9F200ED072F /* Vec4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vec4.h; sourceTree = "<group>"; };
-		1AC3D2402015C9F200ED072F /* CCAffineTransform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCAffineTransform.h; sourceTree = "<group>"; };
 		1AC3D2412015C9F200ED072F /* Mat4.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Mat4.cpp; sourceTree = "<group>"; };
-		1AC3D2422015C9F200ED072F /* CCGeometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCGeometry.h; sourceTree = "<group>"; };
-		1AC3D2432015C9F200ED072F /* TransformUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TransformUtils.cpp; sourceTree = "<group>"; };
 		1AC3D2442015C9F200ED072F /* Quaternion.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Quaternion.cpp; sourceTree = "<group>"; };
-		1AC3D2452015C9F200ED072F /* CCVertex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCVertex.h; sourceTree = "<group>"; };
-		1AC3D2462015C9F200ED072F /* CCVertex.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCVertex.cpp; sourceTree = "<group>"; };
 		1AC3D2472015C9F200ED072F /* Vec4.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Vec4.cpp; sourceTree = "<group>"; };
 		1AC3D2482015C9F200ED072F /* Vec3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vec3.h; sourceTree = "<group>"; };
 		1AC3D2492015C9F200ED072F /* CCMathBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCMathBase.h; sourceTree = "<group>"; };
@@ -178,7 +158,6 @@
 		1AC3D24C2015C9F200ED072F /* Vec2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Vec2.cpp; sourceTree = "<group>"; };
 		1AC3D24D2015C9F200ED072F /* CCMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCMath.h; sourceTree = "<group>"; };
 		1AC3D24E2015C9F200ED072F /* Vec3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Vec3.cpp; sourceTree = "<group>"; };
-		1AC3D24F2015C9F200ED072F /* CCAffineTransform.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCAffineTransform.cpp; sourceTree = "<group>"; };
 		1AC3D2502015C9F200ED072F /* MathUtilNeon.inl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MathUtilNeon.inl; sourceTree = "<group>"; };
 		1AC3D2712015CD8200ED072F /* base.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = base.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -230,7 +209,7 @@
 				1AC3D02B2015BE1A00ED072F /* config.h */,
 				1AC3D02D2015BE1A00ED072F /* Ref.cpp */,
 				1AC3D02E2015BE1A00ED072F /* Ref.h */,
-				1AC3D02F2015BE1A00ED072F /* macro.h */,
+				1AC3D02F2015BE1A00ED072F /* macros.h */,
 				1AC3D0282015BE1A00ED072F /* types.cpp */,
 				1AC3D02C2015BE1A00ED072F /* types.h */,
 				1AC3D2712015CD8200ED072F /* base.h */,
@@ -283,38 +262,29 @@
 		1AC3D2302015C9F200ED072F /* math */ = {
 			isa = PBXGroup;
 			children = (
-				1AC3D2312015C9F200ED072F /* Vec2.h */,
-				1AC3D2322015C9F200ED072F /* Mat4.h */,
-				1AC3D2332015C9F200ED072F /* Quaternion.inl */,
-				1AC3D2342015C9F200ED072F /* CMakeLists.txt */,
-				1AC3D2352015C9F200ED072F /* MathUtilNeon64.inl */,
-				1AC3D2362015C9F200ED072F /* Mat4.inl */,
-				1AC3D2372015C9F200ED072F /* Vec3.inl */,
-				1AC3D2382015C9F200ED072F /* Vec2.inl */,
-				1AC3D2392015C9F200ED072F /* MathUtilSSE.inl */,
-				1AC3D23A2015C9F200ED072F /* Quaternion.h */,
-				1AC3D23B2015C9F200ED072F /* TransformUtils.h */,
-				1AC3D23C2015C9F200ED072F /* MathUtil.cpp */,
-				1AC3D23D2015C9F200ED072F /* Vec4.inl */,
-				1AC3D23E2015C9F200ED072F /* CCGeometry.cpp */,
-				1AC3D23F2015C9F200ED072F /* Vec4.h */,
-				1AC3D2402015C9F200ED072F /* CCAffineTransform.h */,
-				1AC3D2412015C9F200ED072F /* Mat4.cpp */,
-				1AC3D2422015C9F200ED072F /* CCGeometry.h */,
-				1AC3D2432015C9F200ED072F /* TransformUtils.cpp */,
-				1AC3D2442015C9F200ED072F /* Quaternion.cpp */,
-				1AC3D2452015C9F200ED072F /* CCVertex.h */,
-				1AC3D2462015C9F200ED072F /* CCVertex.cpp */,
-				1AC3D2472015C9F200ED072F /* Vec4.cpp */,
-				1AC3D2482015C9F200ED072F /* Vec3.h */,
-				1AC3D2492015C9F200ED072F /* CCMathBase.h */,
-				1AC3D24A2015C9F200ED072F /* MathUtil.inl */,
-				1AC3D24B2015C9F200ED072F /* MathUtil.h */,
-				1AC3D24C2015C9F200ED072F /* Vec2.cpp */,
 				1AC3D24D2015C9F200ED072F /* CCMath.h */,
-				1AC3D24E2015C9F200ED072F /* Vec3.cpp */,
-				1AC3D24F2015C9F200ED072F /* CCAffineTransform.cpp */,
+				1AC3D2492015C9F200ED072F /* CCMathBase.h */,
+				1AC3D2412015C9F200ED072F /* Mat4.cpp */,
+				1AC3D2322015C9F200ED072F /* Mat4.h */,
+				1AC3D2362015C9F200ED072F /* Mat4.inl */,
+				1AC3D23C2015C9F200ED072F /* MathUtil.cpp */,
+				1AC3D24B2015C9F200ED072F /* MathUtil.h */,
+				1AC3D24A2015C9F200ED072F /* MathUtil.inl */,
 				1AC3D2502015C9F200ED072F /* MathUtilNeon.inl */,
+				1AC3D2352015C9F200ED072F /* MathUtilNeon64.inl */,
+				1AC3D2392015C9F200ED072F /* MathUtilSSE.inl */,
+				1AC3D2442015C9F200ED072F /* Quaternion.cpp */,
+				1AC3D23A2015C9F200ED072F /* Quaternion.h */,
+				1AC3D2332015C9F200ED072F /* Quaternion.inl */,
+				1AC3D24C2015C9F200ED072F /* Vec2.cpp */,
+				1AC3D2312015C9F200ED072F /* Vec2.h */,
+				1AC3D2382015C9F200ED072F /* Vec2.inl */,
+				1AC3D24E2015C9F200ED072F /* Vec3.cpp */,
+				1AC3D2482015C9F200ED072F /* Vec3.h */,
+				1AC3D2372015C9F200ED072F /* Vec3.inl */,
+				1AC3D2472015C9F200ED072F /* Vec4.cpp */,
+				1AC3D23F2015C9F200ED072F /* Vec4.h */,
+				1AC3D23D2015C9F200ED072F /* Vec4.inl */,
 			);
 			path = math;
 			sourceTree = "<group>";
@@ -331,7 +301,6 @@
 				1AC3D2722015CD8200ED072F /* base.h in Headers */,
 				1AC3D21A2015BE1B00ED072F /* Texture.h in Headers */,
 				1AC3D2682015C9F200ED072F /* CCMathBase.h in Headers */,
-				1AC3D2542015C9F200ED072F /* TransformUtils.h in Headers */,
 				1AC3D2692015C9F200ED072F /* MathUtil.h in Headers */,
 				1AC3D2042015BE1B00ED072F /* GFX.h in Headers */,
 				1AC3D20C2015BE1B00ED072F /* GraphicsHandle.h in Headers */,
@@ -339,10 +308,8 @@
 				1AC3D1A22015BE1A00ED072F /* Ref.h in Headers */,
 				1AC3D2522015C9F200ED072F /* Mat4.h in Headers */,
 				1AC3D21E2015BE1B00ED072F /* Program.h in Headers */,
-				1AC3D25A2015C9F200ED072F /* CCAffineTransform.h in Headers */,
 				1AC3D2592015C9F200ED072F /* Vec4.h in Headers */,
 				1AC3D26C2015C9F200ED072F /* CCMath.h in Headers */,
-				1AC3D25D2015C9F200ED072F /* CCGeometry.h in Headers */,
 				1AC3D2292015BE1B00ED072F /* FrameBuffer.h in Headers */,
 				1AC3D2232015BE1B00ED072F /* DeviceGraphics.h in Headers */,
 				1AC3D19D2015BE1A00ED072F /* GLBase.h in Headers */,
@@ -354,11 +321,10 @@
 				1AC3D20D2015BE1B00ED072F /* VertexBuffer.h in Headers */,
 				1AC3D21B2015BE1B00ED072F /* GFXUtils.h in Headers */,
 				1AC3D19C2015BE1A00ED072F /* Data.h in Headers */,
-				1AC3D2622015C9F200ED072F /* CCVertex.h in Headers */,
 				1AC3D2092015BE1B00ED072F /* VertexFormat.h in Headers */,
 				1AC3D19F2015BE1A00ED072F /* types.h in Headers */,
 				1AC3D2672015C9F200ED072F /* Vec3.h in Headers */,
-				1AC3D1A32015BE1A00ED072F /* macro.h in Headers */,
+				1AC3D1A32015BE1A00ED072F /* macros.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -446,14 +412,12 @@
 				1AC3D2652015C9F200ED072F /* Vec4.cpp in Sources */,
 				1AC3D2142015BE1B00ED072F /* GFXUtils.cpp in Sources */,
 				1AC3D19A2015BE1A00ED072F /* types.cpp in Sources */,
-				1AC3D2572015C9F200ED072F /* CCGeometry.cpp in Sources */,
 				1AC3D21C2015BE1B00ED072F /* GFX.cpp in Sources */,
 				1AC3D2602015C9F200ED072F /* Quaternion.cpp in Sources */,
 				1AC3D26A2015C9F200ED072F /* Vec2.cpp in Sources */,
 				1AC3D22A2015BE1B00ED072F /* GraphicsHandle.cpp in Sources */,
 				1AC3D1A02015BE1A00ED072F /* Ref.cpp in Sources */,
 				1AC3D26D2015C9F200ED072F /* Vec3.cpp in Sources */,
-				1AC3D26F2015C9F200ED072F /* CCAffineTransform.cpp in Sources */,
 				1AC3D2072015BE1B00ED072F /* DeviceGraphics.cpp in Sources */,
 				1AC3D2552015C9F200ED072F /* MathUtil.cpp in Sources */,
 				1AC3D20F2015BE1B00ED072F /* RenderBuffer.cpp in Sources */,
@@ -464,8 +428,6 @@
 				1AC3D2202015BE1B00ED072F /* VertexFormat.cpp in Sources */,
 				1AC3D2272015BE1B00ED072F /* Texture.cpp in Sources */,
 				1AC3D20A2015BE1B00ED072F /* IndexBuffer.cpp in Sources */,
-				1AC3D2632015C9F200ED072F /* CCVertex.cpp in Sources */,
-				1AC3D25E2015C9F200ED072F /* TransformUtils.cpp in Sources */,
 				1AC3D25B2015C9F200ED072F /* Mat4.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -480,14 +442,12 @@
 				1AC3D2662015C9F200ED072F /* Vec4.cpp in Sources */,
 				1AC3D2152015BE1B00ED072F /* GFXUtils.cpp in Sources */,
 				1AC3D19B2015BE1A00ED072F /* types.cpp in Sources */,
-				1AC3D2582015C9F200ED072F /* CCGeometry.cpp in Sources */,
 				1AC3D21D2015BE1B00ED072F /* GFX.cpp in Sources */,
 				1AC3D2612015C9F200ED072F /* Quaternion.cpp in Sources */,
 				1AC3D26B2015C9F200ED072F /* Vec2.cpp in Sources */,
 				1AC3D22B2015BE1B00ED072F /* GraphicsHandle.cpp in Sources */,
 				1AC3D1A12015BE1A00ED072F /* Ref.cpp in Sources */,
 				1AC3D26E2015C9F200ED072F /* Vec3.cpp in Sources */,
-				1AC3D2702015C9F200ED072F /* CCAffineTransform.cpp in Sources */,
 				1AC3D2082015BE1B00ED072F /* DeviceGraphics.cpp in Sources */,
 				1AC3D2562015C9F200ED072F /* MathUtil.cpp in Sources */,
 				1AC3D2102015BE1B00ED072F /* RenderBuffer.cpp in Sources */,
@@ -498,8 +458,6 @@
 				1AC3D2212015BE1B00ED072F /* VertexFormat.cpp in Sources */,
 				1AC3D2282015BE1B00ED072F /* Texture.cpp in Sources */,
 				1AC3D20B2015BE1B00ED072F /* IndexBuffer.cpp in Sources */,
-				1AC3D2642015C9F200ED072F /* CCVertex.cpp in Sources */,
-				1AC3D25F2015C9F200ED072F /* TransformUtils.cpp in Sources */,
 				1AC3D25C2015C9F200ED072F /* Mat4.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -510,12 +468,24 @@
 		1AC3D0072015B8A500ED072F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				GCC_C_LANGUAGE_STANDARD = c11;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT) $(SRCROOT)/../external/source $(SRCROOT)/../external/source/firefox";
 			};
 			name = Debug;
 		};
 		1AC3D0082015B8A500ED072F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				GCC_C_LANGUAGE_STANDARD = c11;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT) $(SRCROOT)/../external/source $(SRCROOT)/../external/source/firefox";
 			};
 			name = Release;
 		};
@@ -525,7 +495,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -554,7 +524,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_C_LANGUAGE_STANDARD = c11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -568,7 +538,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
@@ -576,6 +546,7 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				USER_HEADER_SEARCH_PATHS = "$(inherited)";
 			};
 			name = Debug;
 		};
@@ -585,7 +556,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -614,7 +585,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_C_LANGUAGE_STANDARD = c11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -622,13 +593,14 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				USER_HEADER_SEARCH_PATHS = "$(inherited)";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -639,7 +611,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -669,7 +641,7 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				EXECUTABLE_PREFIX = lib;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_C_LANGUAGE_STANDARD = c11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -683,11 +655,12 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
+				USER_HEADER_SEARCH_PATHS = "$(inherited)";
 			};
 			name = Debug;
 		};
@@ -697,7 +670,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -727,7 +700,7 @@
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				EXECUTABLE_PREFIX = lib;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_C_LANGUAGE_STANDARD = c11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -735,10 +708,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
+				USER_HEADER_SEARCH_PATHS = "$(inherited)";
 			};
 			name = Release;
 		};

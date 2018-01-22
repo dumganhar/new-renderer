@@ -24,16 +24,16 @@
 
 #pragma once
 
-#include "../macro.h"
-#include "../types.h"
+#include "base/macros.h"
+#include "base/types.h"
 
-#include "CCGraphicsHandle.h"
-#include "CCRenderTarget.h"
-#include "base/CCData.h"
+#include "GraphicsHandle.h"
+#include "RenderTarget.h"
+#include "base/Data.h"
 
 #include <vector>
 
-GFX_BEGIN
+NS_CC_GFX_BEGIN
 
 class DeviceGraphics;
 
@@ -250,4 +250,4 @@ protected:
     bool _compressed;
 };
 
-GFX_END
+NS_CC_GFX_END

@@ -22,10 +22,10 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#include "CCRenderBuffer.h"
-#include "CCGFXUtils.h"
+#include "RenderBuffer.h"
+#include "GFXUtils.h"
 
-GFX_BEGIN
+NS_CC_GFX_BEGIN
 
 RenderBuffer::RenderBuffer()
 : _device(nullptr)
@@ -40,7 +40,7 @@ RenderBuffer::~RenderBuffer()
 {
     if (_glID == 0)
     {
-        GFX_LOGE("The render-buffer (%p) is invalid!", this);
+        CCLOGE("The render-buffer (%p) is invalid!", this);
         return;
     }
 
@@ -63,4 +63,4 @@ bool RenderBuffer::init(DeviceGraphics* device, Format format, uint16_t width, u
     return true;
 }
 
-GFX_END
+NS_CC_GFX_END

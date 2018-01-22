@@ -24,17 +24,17 @@
 
 #pragma once
 
-#include "../macro.h"
-#include "../types.h"
+#include "base/macros.h"
+#include "base/types.h"
 
-#include "CCTexture.h"
+#include "Texture.h"
 
-GFX_BEGIN
+NS_CC_GFX_BEGIN
 
 class Texture2D : public Texture
 {
 public:
-    GFX_DEFINE_CREATE_METHOD_2(Texture2D, init, DeviceGraphics*, const Options&)
+    CC_DEFINE_CREATE_METHOD_2(Texture2D, init, DeviceGraphics*, const Options&)
 
     Texture2D();
     virtual ~Texture2D();
@@ -52,4 +52,4 @@ private:
 
 };
 
-GFX_END
+NS_CC_GFX_END

@@ -22,8 +22,8 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#include "CCTexture.h"
-#include "platform/CCPlatformConfig.h"
+#include "Texture.h"
+#include "base/config.h"
 
 namespace {
 
@@ -81,7 +81,7 @@ namespace {
 
 } // namespace {
 
-GFX_BEGIN
+NS_CC_GFX_BEGIN
 
 Texture::GLTextureFmt Texture::_textureFmt[] = {
     // TEXTURE_FMT_RGB_DXT1: 0
@@ -192,7 +192,7 @@ Texture::~Texture()
 {
     if (_glID == 0)
     {
-        GFX_LOGE("Invalid texture: %p", this);
+        CCLOGE("Invalid texture: %p", this);
         return;
     }
 
@@ -227,13 +227,13 @@ GLenum Texture::glFilter(Filter filter, Filter mipFilter/* = TextureFilter::NONE
 {
     if (filter < Filter::NEAREST || filter > Filter::LINEAR)
     {
-        GFX_LOGW("Unknown filter: %u", (uint32_t)filter);
+        CCLOGW("Unknown filter: %u", (uint32_t)filter);
         return mipFilter == Filter::NONE ? GL_LINEAR : GL_LINEAR_MIPMAP_LINEAR;
     }
 
     if (mipFilter < Filter::NONE || mipFilter > Filter::LINEAR)
     {
-        GFX_LOGW("Unknown mipFilter: %u", (uint32_t)filter);
+        CCLOGW("Unknown mipFilter: %u", (uint32_t)filter);
         return mipFilter == Filter::NONE ? GL_LINEAR : GL_LINEAR_MIPMAP_LINEAR;
     }
 
@@ -256,4 +256,4 @@ const Texture::GLTextureFmt& Texture::glTextureFmt(Format fmt)
     return _textureFmt[(uint8_t)fmt];
 }
 
-GFX_END
+NS_CC_GFX_END

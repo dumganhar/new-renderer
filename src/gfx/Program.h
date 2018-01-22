@@ -24,15 +24,15 @@
 
 #pragma once
 
-#include "../macro.h"
-#include "../types.h"
+#include "base/macros.h"
+#include "base/types.h"
 
-#include "CCGraphicsHandle.h"
+#include "GraphicsHandle.h"
 
 #include <string>
 #include <vector>
 
-GFX_BEGIN
+NS_CC_GFX_BEGIN
 
 class DeviceGraphics;
 
@@ -60,7 +60,7 @@ public:
         friend class Program;
     };
 
-    GFX_DEFINE_CREATE_METHOD_3(Program, init, DeviceGraphics*, const char*, const char*)
+    CC_DEFINE_CREATE_METHOD_3(Program, init, DeviceGraphics*, const char*, const char*)
     Program();
     virtual ~Program();
 
@@ -80,4 +80,4 @@ private:
     bool _linked;
 };
 
-GFX_END
+NS_CC_GFX_END

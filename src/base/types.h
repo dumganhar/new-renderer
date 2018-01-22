@@ -29,10 +29,10 @@
 #include <stdio.h>
 #include <assert.h>
 
-#include "macro.h"
-#include "platform/CCGL.h"
+#include "base/macros.h"
+#include "base/GLBase.h"
 
-GFX_BEGIN
+NS_CC_BEGIN
 
 enum ClearFlag : uint8_t
 {
@@ -170,4 +170,33 @@ enum class UniformElementType : uint8_t
     INT
 };
 
-GFX_END
+struct CC_DLL Color4F
+{
+    Color4F();
+    Color4F(float _r, float _g, float _b, float _a);
+
+    bool operator==(const Color4F& right) const;
+    bool operator!=(const Color4F& right) const;
+
+    bool equals(const Color4F &other) const
+    {
+        return (*this == other);
+    }
+
+    GLfloat r;
+    GLfloat g;
+    GLfloat b;
+    GLfloat a;
+
+    static const Color4F WHITE;
+    static const Color4F YELLOW;
+    static const Color4F BLUE;
+    static const Color4F GREEN;
+    static const Color4F RED;
+    static const Color4F MAGENTA;
+    static const Color4F BLACK;
+    static const Color4F ORANGE;
+    static const Color4F GRAY;
+};
+
+NS_CC_END

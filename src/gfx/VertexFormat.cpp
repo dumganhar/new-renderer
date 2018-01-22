@@ -22,9 +22,9 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#include "CCVertexFormat.h"
+#include "VertexFormat.h"
 
-GFX_BEGIN
+NS_CC_GFX_BEGIN
 
 static uint32_t attrTypeBytes(AttribType attrType)
 {
@@ -44,7 +44,7 @@ static uint32_t attrTypeBytes(AttribType attrType)
         return 4;
     }
 
-    GFX_LOGW("Unknown ATTR_TYPE: %u", (uint32_t)attrType);
+    CCLOGW("Unknown ATTR_TYPE: %u", (uint32_t)attrType);
     return 0;
 }
 
@@ -140,4 +140,4 @@ const VertexFormat::Element& VertexFormat::getElement(const std::string& attrNam
     return INVALID_ELEMENT_VALUE;
 }
 
-GFX_END
+NS_CC_GFX_END

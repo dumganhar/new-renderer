@@ -23,18 +23,18 @@
  ****************************************************************************/
 #pragma once
 
-#include "../macro.h"
-#include "../types.h"
-#include "CCGraphicsHandle.h"
+#include "base/macros.h"
+#include "base/types.h"
+#include "GraphicsHandle.h"
 
-GFX_BEGIN
+NS_CC_GFX_BEGIN
 
 class DeviceGraphics;
 
 class IndexBuffer final : public GraphicsHandle
 {
 public:
-    GFX_DEFINE_CREATE_METHOD_6(IndexBuffer, init, DeviceGraphics*, IndexFormat, Usage, const void*, size_t, uint32_t)
+    CC_DEFINE_CREATE_METHOD_6(IndexBuffer, init, DeviceGraphics*, IndexFormat, Usage, const void*, size_t, uint32_t)
 
     IndexBuffer();
     virtual ~IndexBuffer();
@@ -57,4 +57,4 @@ private:
     CC_DISALLOW_COPY_ASSIGN_AND_MOVE(IndexBuffer)
 };
 
-GFX_END
+NS_CC_GFX_END

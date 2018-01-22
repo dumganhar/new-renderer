@@ -24,12 +24,12 @@
 
 #pragma once
 
-#include "../macro.h"
-#include "types.h"
+#include "base/macros.h"
+#include "base/types.h"
 
-#include "CCRenderTarget.h"
+#include "RenderTarget.h"
 
-GFX_BEGIN
+NS_CC_GFX_BEGIN
 
 class DeviceGraphics;
 
@@ -46,7 +46,7 @@ public:
 //        D24S8 = GL_DEPTH_STENCIL
     };
 
-    GFX_DEFINE_CREATE_METHOD_4(RenderBuffer, init,  DeviceGraphics*, Format, uint16_t, uint16_t)
+    CC_DEFINE_CREATE_METHOD_4(RenderBuffer, init,  DeviceGraphics*, Format, uint16_t, uint16_t)
 
     RenderBuffer();
     virtual ~RenderBuffer();
@@ -60,4 +60,4 @@ private:
     uint16_t _height;
 };
 
-GFX_END
+NS_CC_GFX_END

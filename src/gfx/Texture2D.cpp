@@ -22,9 +22,9 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#include "CCTexture2D.h"
-#include "CCDeviceGraphics.h"
-#include "CCGFXUtils.h"
+#include "Texture2D.h"
+#include "DeviceGraphics.h"
+#include "GFXUtils.h"
 #include "firefox/WebGLFormats.h"
 #include "firefox/GLConsts.h"
 #include "firefox/WebGLTexelConversions.h"
@@ -206,17 +206,17 @@ namespace {
         const auto dstOrigin = gl::OriginPos::BottomLeft;
 
         if (srcFormat != dstFormat) {
-            GFX_LOGW("%s: Conversion requires pixel reformatting. (%u->%u)",
+            CCLOGW("%s: Conversion requires pixel reformatting. (%u->%u)",
                                        funcName, uint32_t(srcFormat),
                                        uint32_t(dstFormat));
         } else if (fnHasPremultMismatch()) {
-            GFX_LOGW("%s: Conversion requires change in"
+            CCLOGW("%s: Conversion requires change in"
                                        " alpha-premultiplication.",
                                        funcName);
         } else if (srcOrigin != dstOrigin) {
-            GFX_LOGW("%s: Conversion requires y-flip.", funcName);
+            CCLOGW("%s: Conversion requires y-flip.", funcName);
         } else if (srcStride != dstStride) {
-            GFX_LOGW("%s: Conversion requires change in stride. (%u->%u)",
+            CCLOGW("%s: Conversion requires change in stride. (%u->%u)",
                                        funcName, uint32_t(srcStride), uint32_t(dstStride));
         } else {
             return true;
@@ -226,13 +226,13 @@ namespace {
 
         const auto dstTotalBytes = CheckedUint32(rowCount) * dstStride;
         if (!dstTotalBytes.isValid()) {
-            GFX_LOGE("%s: Calculation failed.", funcName);
+            CCLOGE("%s: Calculation failed.", funcName);
             return false;
         }
 
         UniqueBuffer dstBuffer = calloc(1, dstTotalBytes.value());
         if (!dstBuffer.get()) {
-            GFX_LOGE("%s: Failed to allocate dest buffer.", funcName);
+            CCLOGE("%s: Failed to allocate dest buffer.", funcName);
             return false;
         }
         const auto dstBegin = static_cast<uint8_t*>(dstBuffer.get());
@@ -246,7 +246,7 @@ namespace {
                           dstBegin, dstStride, dstOrigin, dstFormat, dstIsPremult,
                           &wasTrivial))
         {
-            GFX_LOGE("%s: ConvertImage failed.", funcName);
+            CCLOGE("%s: ConvertImage failed.", funcName);
             return false;
         }
 
@@ -500,7 +500,7 @@ namespace {
 
 }
 
-GFX_BEGIN
+NS_CC_GFX_BEGIN
 
 Texture2D::Texture2D()
 {
@@ -554,7 +554,7 @@ void Texture2D::update(const Options& options)
         genMipmap = false; //TODO: is it true here?
         uint16_t maxLength = options.width > options.height ? options.width : options.height;
         if (maxLength >> (options.images.size() - 1) != 1) {
-            GFX_LOGE("texture-2d mipmap is invalid, should have a 1x1 mipmap.");
+            CCLOGE("texture-2d mipmap is invalid, should have a 1x1 mipmap.");
         }
     }
 
@@ -719,7 +719,7 @@ void Texture2D::setTexInfo()
     // WebGL1 doesn't support all wrap modes with NPOT textures
     if (!pot && (_wrapS != WrapMode::CLAMP || _wrapT != WrapMode::CLAMP))
     {
-        GFX_LOGW("WebGL1 doesn\'t support all wrap modes with NPOT textures");
+        CCLOGW("WebGL1 doesn\'t support all wrap modes with NPOT textures");
         _wrapS = WrapMode::CLAMP;
         _wrapT = WrapMode::CLAMP;
     }
@@ -727,7 +727,7 @@ void Texture2D::setTexInfo()
     Filter mipFilter = _hasMipmap ? _mipFilter : Filter::NONE;
     if (!pot && mipFilter != Filter::NONE)
     {
-        GFX_LOGW("NPOT textures do not support mipmap filter");
+        CCLOGW("NPOT textures do not support mipmap filter");
         mipFilter = Filter::NONE;
     }
 
@@ -742,4 +742,4 @@ void Texture2D::setTexInfo()
 //    }
 }
 
-GFX_END
+NS_CC_GFX_END

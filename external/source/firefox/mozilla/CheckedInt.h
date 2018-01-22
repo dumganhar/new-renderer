@@ -432,7 +432,7 @@ struct NegateImpl<T, true>
 /**
  * @class CheckedInt
  * @brief Integer wrapper class checking for integer overflow and other errors
- * @param T the integer type to wrap. Can be any type among the following:
+ * T the integer type to wrap. Can be any type among the following:
  *            - any basic integer type such as |int|
  *            - any stdint type such as |int8_t|
  *

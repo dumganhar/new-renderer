@@ -22,8 +22,8 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#include "CCGFXUtils.h"
-#include "macro.h"
+#include "GFXUtils.h"
+#include "base/macros.h"
 
 #include <stdio.h>
 
@@ -51,7 +51,7 @@ const char* glEnumName(GLenum _enum)
 
 #undef GLENUM
 
-    GFX_LOGW("Unknown enum? %x", _enum);
+    CCLOGW("Unknown enum? %x", _enum);
     return "<GLenum?>";
 }
 

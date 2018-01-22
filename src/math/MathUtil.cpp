@@ -19,7 +19,7 @@ This file was modified to fit the cocos2d-x project
 */
 
 #include "math/MathUtil.h"
-#include "base/ccMacros.h"
+#include "base/macros.h"
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
 #include <cpu-features.h>
@@ -76,7 +76,7 @@ NS_CC_MATH_BEGIN
 
 void MathUtil::smooth(float* x, float target, float elapsedTime, float responseTime)
 {
-    GP_ASSERT(x);
+    CCASSERT(x);
     
     if (elapsedTime > 0)
     {
@@ -86,7 +86,7 @@ void MathUtil::smooth(float* x, float target, float elapsedTime, float responseT
 
 void MathUtil::smooth(float* x, float target, float elapsedTime, float riseTime, float fallTime)
 {
-    GP_ASSERT(x);
+    CCASSERT(x);
     
     if (elapsedTime > 0)
     {

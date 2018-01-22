@@ -22,19 +22,19 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#include "CCDeviceGraphics.h"
-#include "CCVertexBuffer.h"
-#include "CCIndexBuffer.h"
-#include "CCFrameBuffer.h"
-#include "CCGraphicsHandle.h"
-#include "CCTexture2D.h"
-#include "CCRenderTarget.h"
-#include "CCProgram.h"
-#include "CCGFXUtils.h"
+#include "DeviceGraphics.h"
+#include "VertexBuffer.h"
+#include "IndexBuffer.h"
+#include "FrameBuffer.h"
+#include "GraphicsHandle.h"
+#include "Texture2D.h"
+#include "RenderTarget.h"
+#include "Program.h"
+#include "GFXUtils.h"
 
-#include "platform/CCPlatformConfig.h"
+#include "base/config.h"
 
-GFX_BEGIN
+NS_CC_GFX_BEGIN
 
 static_assert(sizeof(int) == sizeof(GLint), "ERROR: GLint isn't equal to int!");
 static_assert(sizeof(float) == sizeof(GLfloat), "ERROR: GLfloat isn't equal to float!");
@@ -73,9 +73,9 @@ void DeviceGraphics::setFrameBuffer(const FrameBuffer* fb)
     if (fb == _frameBuffer)
         return;
     
-    GFX_SAFE_RELEASE(_frameBuffer);
+    CC_SAFE_RELEASE(_frameBuffer);
     _frameBuffer = const_cast<FrameBuffer*>(fb);
-    GFX_SAFE_RETAIN(_frameBuffer);
+    CC_SAFE_RETAIN(_frameBuffer);
     
     if (nullptr == fb)
     {
@@ -115,7 +115,7 @@ void DeviceGraphics::setFrameBuffer(const FrameBuffer* fb)
     
     auto result = glCheckFramebufferStatus(GL_FRAMEBUFFER);
     if (GL_FRAMEBUFFER_COMPLETE != result)
-        GFX_LOGE("Framebuffer status error: 0x%x", result);
+        CCLOGE("Framebuffer status error: 0x%x", result);
 }
 
 void DeviceGraphics::setViewport(int x, int y, int w, int h)
@@ -506,17 +506,17 @@ void DeviceGraphics::setUniformfv(const std::string& name, size_t count, const f
 
 void DeviceGraphics::setUniformVec2(const std::string& name, const float* value)
 {
-    setUniform(name, &value, sizeof(Vec2), UniformElementType::FLOAT);
+    setUniform(name, &value, 2 * sizeof(float), UniformElementType::FLOAT);
 }
 
 void DeviceGraphics::setUniformVec3(const std::string& name, const float* value)
 {
-    setUniform(name, &value, sizeof(Vec3), UniformElementType::FLOAT);
+    setUniform(name, &value, 3 * sizeof(float), UniformElementType::FLOAT);
 }
 
 void DeviceGraphics::setUniformVec4(const std::string& name, const float* value)
 {
-    setUniform(name, &value, sizeof(Vec4), UniformElementType::FLOAT);
+    setUniform(name, &value, 4 * sizeof(float), UniformElementType::FLOAT);
 }
 
 void DeviceGraphics::setUniformMat2(const std::string& name, const float* value)
@@ -567,7 +567,7 @@ DeviceGraphics::DeviceGraphics()
 DeviceGraphics::~DeviceGraphics()
 {
     delete _glExtensions;
-    GFX_SAFE_RELEASE(_frameBuffer);
+    CC_SAFE_RELEASE(_frameBuffer);
 }
 
 void DeviceGraphics::initCaps()
@@ -1147,4 +1147,4 @@ void DeviceGraphics::Uniform::setValue(const void* v, size_t bytes)
     memcpy(value, v, bytes);
 }
 
-GFX_END
+NS_CC_GFX_END

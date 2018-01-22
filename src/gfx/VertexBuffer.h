@@ -24,19 +24,19 @@
 
 #pragma once
 
-#include "../macro.h"
-#include "../types.h"
-#include "CCVertexFormat.h"
-#include "CCGraphicsHandle.h"
+#include "base/macros.h"
+#include "base/types.h"
+#include "VertexFormat.h"
+#include "GraphicsHandle.h"
 
-GFX_BEGIN
+NS_CC_GFX_BEGIN
 
 class DeviceGraphics;
 
 class VertexBuffer final : public GraphicsHandle
 {
 public:
-    GFX_DEFINE_CREATE_METHOD_6(VertexBuffer, init,  DeviceGraphics*, const VertexFormat&, Usage, const void*, size_t, uint32_t)
+    CC_DEFINE_CREATE_METHOD_6(VertexBuffer, init,  DeviceGraphics*, const VertexFormat&, Usage, const void*, size_t, uint32_t)
 
     VertexBuffer();
     virtual ~VertexBuffer();
@@ -56,4 +56,4 @@ private:
     CC_DISALLOW_COPY_ASSIGN_AND_MOVE(VertexBuffer)
 };
 
-GFX_END
+NS_CC_GFX_END

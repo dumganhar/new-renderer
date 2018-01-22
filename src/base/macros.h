@@ -25,17 +25,18 @@
 #pragma once
 
 #include "config.h"
+#include <assert.h>
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
 #include <android/log.h>
 #endif
 
-#define NS_CC_BASE_BEGIN                     namespace cocos2d { namespace base {
-#define NS_CC_BASE_END                       }}
-#define USING_NS_CC_BASE                     using namespace cocos2d::base
+#define NS_CC_BEGIN                     namespace cocos2d {
+#define NS_CC_END                       }
+#define USING_NS_CC                     using namespace
 
-#define NS_CC_CC_BEGIN                      namespace cocos2d { namespace gfx {
-#define NS_CC_CC_END                        }}
+#define NS_CC_GFX_BEGIN                      namespace cocos2d { namespace gfx {
+#define NS_CC_GFX_END                        }}
 #define USING_NS_CC_GFX                      using namespace cocos2d::gfx
 
 #define NS_CC_RENDERER_BEGIN                 namespace cocos2d { namespace renderer {
@@ -111,7 +112,6 @@ static clsName* create() \
     clsName* ret = new (std::nothrow) clsName(); \
     if (ret && ret->initMethod()) \
     { \
-        ret->autorelease(); \
         return ret; \
     } \
     delete ret; \
@@ -124,7 +124,6 @@ static clsName* create(arg0Type arg0) \
     clsName* ret = new (std::nothrow) clsName(); \
     if (ret && ret->initMethod(arg0)) \
     { \
-        ret->autorelease(); \
         return ret; \
     } \
     delete ret; \
@@ -137,7 +136,6 @@ static clsName* create(arg0Type arg0, arg1Type arg1) \
     clsName* ret = new (std::nothrow) clsName(); \
     if (ret && ret->initMethod(arg0, arg1)) \
     { \
-        ret->autorelease(); \
         return ret; \
     } \
     delete ret; \
@@ -150,7 +148,6 @@ static clsName* create(arg0Type arg0, arg1Type arg1, arg2Type arg2) \
     clsName* ret = new (std::nothrow) clsName(); \
     if (ret && ret->initMethod(arg0, arg1, arg2)) \
     { \
-        ret->autorelease(); \
         return ret; \
     } \
     delete ret; \
@@ -163,7 +160,6 @@ static clsName* create(arg0Type arg0, arg1Type arg1, arg2Type arg2, arg3Type arg
     clsName* ret = new (std::nothrow) clsName(); \
     if (ret && ret->initMethod(arg0, arg1, arg2, arg3)) \
     { \
-        ret->autorelease(); \
         return ret; \
     } \
     delete ret; \
@@ -176,7 +172,6 @@ static clsName* create(arg0Type arg0, arg1Type arg1, arg2Type arg2, arg3Type arg
     clsName* ret = new (std::nothrow) clsName(); \
     if (ret && ret->initMethod(arg0, arg1, arg2, arg3, arg4)) \
     { \
-        ret->autorelease(); \
         return ret; \
     } \
     delete ret; \
@@ -189,7 +184,6 @@ static clsName* create(arg0Type arg0, arg1Type arg1, arg2Type arg2, arg3Type arg
     clsName* ret = new (std::nothrow) clsName(); \
     if (ret && ret->initMethod(arg0, arg1, arg2, arg3, arg4, arg5)) \
     { \
-        ret->autorelease(); \
         return ret; \
     } \
     delete ret; \
@@ -214,4 +208,9 @@ static clsName* create(arg0Type arg0, arg1Type arg1, arg2Type arg2, arg3Type arg
 #   define CC_GL_CHECK(_call)   _call
 #endif // BCC_CONFIG_DEBUG
 
+//TODO:
+#ifndef CC_DLL
+#define CC_DLL 
+#endif
 
+#define CCASSERT assert

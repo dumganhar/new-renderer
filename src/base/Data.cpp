@@ -25,7 +25,7 @@
 
 #include "base/Data.h"
 
-NS_CC_BASE_BEGIN
+NS_CC_BEGIN
 
 const Data Data::Null;
 
@@ -33,14 +33,14 @@ Data::Data() :
 _bytes(nullptr),
 _size(0)
 {
-    CCLOGINFO("In the empty constructor of Data.");
+    CCLOGI("In the empty constructor of Data.");
 }
 
 Data::Data(Data&& other) :
 _bytes(nullptr),
 _size(0)
 {
-    CCLOGINFO("In the move constructor of Data.");
+    CCLOGI("In the move constructor of Data.");
     move(other);
 }
 
@@ -48,26 +48,26 @@ Data::Data(const Data& other) :
 _bytes(nullptr),
 _size(0)
 {
-    CCLOGINFO("In the copy constructor of Data.");
+    CCLOGI("In the copy constructor of Data.");
     copy(other._bytes, other._size);
 }
 
 Data::~Data()
 {
-    CCLOGINFO("deallocing Data: %p", this);
+    CCLOGI("deallocing Data: %p", this);
     clear();
 }
 
 Data& Data::operator= (const Data& other)
 {
-    CCLOGINFO("In the copy assignment of Data.");
+    CCLOGI("In the copy assignment of Data.");
     copy(other._bytes, other._size);
     return *this;
 }
 
 Data& Data::operator= (Data&& other)
 {
-    CCLOGINFO("In the move assignment of Data.");
+    CCLOGI("In the move assignment of Data.");
     move(other);
     return *this;
 }
@@ -132,4 +132,4 @@ unsigned char* Data::takeBuffer(ssize_t* size)
     return buffer;
 }
 
-NS_CC_BASE_END
+NS_CC_END

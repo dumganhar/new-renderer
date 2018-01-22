@@ -8,7 +8,7 @@
 
 // Most WebIDL typedefs are identical to their OpenGL counterparts.
 //cjh #include "GLTypes.h"
-#include "platform/CCGL.h"
+//#include "platform/CCGL.h"
 
 #include "mozilla/Attributes.h"
 #include <stdint.h>
